@@ -78,7 +78,7 @@ function logKey(e) {
 function ChangePlaySpeedRate(rate) {
     if (player.playbackRate == rate) player.playbackRate = 1;
     else player.playbackRate = rate;
-    $("#toast").innerText = "播放速度: " + rate;
+    $(".toast-body")[0].innerText = "播放速度: " + rate;
     $(".toast").toast("show");
 }
 
@@ -121,12 +121,19 @@ function jump(sec) {
 function rotate(deg) {
     rotatedeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
+
+    $(".toast-body")[0].innerText = "翻轉角度: " + rotatedeg;
+    $(".toast").toast("show");
 }
 
 function rotateY(deg) {
     rotateYdeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
+
+    $(".toast-body")[0].innerText = "水平翻轉: " + rotatedeg;
+    $(".toast").toast("show");
 }
+
 var b = 100;
 var s = 100;
 var c = 100;
@@ -134,15 +141,22 @@ function brightness(val) {
     b += val;
     $("video").css("filter", "brightness(" + b + "%)");
 
-
+    $(".toast-body")[0].innerText = "亮度: " + b + "%";
+    $(".toast").toast("show");
 }
 
 function saturate(val) {
     s += val;
     $("video").css("filter", "saturate(" + s + "%)");
+
+    $(".toast-body")[0].innerText = "飽和度: " + s + "%";
+    $(".toast").toast("show");
 }
 
 function contrast(val) {
     c += val;
     $("video").css("filter", "contrast(" + c + "%)");
+
+    $(".toast-body")[0].innerText = "對比度: " + c + "%";
+    $(".toast").toast("show");
 }
