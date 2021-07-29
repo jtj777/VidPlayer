@@ -78,8 +78,8 @@ function logKey(e) {
 function ChangePlaySpeedRate(rate) {
     if (player.playbackRate == rate) player.playbackRate = 1;
     else player.playbackRate = rate;
-    $("#toast").show();
-    $(".toast").innerText == "12";
+    $("#toast").innerText = "¼½©ñ³t«×: " + rate;
+    $(".toast").show();
 }
 
 function nextPos() {
