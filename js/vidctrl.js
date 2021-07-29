@@ -1,8 +1,8 @@
-//¼½©ñ¾¹¤W¤U¦ì¸m
+//æ’­æ”¾å™¨ä¸Šä¸‹ä½ç½®
 var topPx = 0;
-//¼·©ñ¾¹¨¤«×
+//æ’¥æ”¾å™¨è§’åº¦
 var rotatedeg = 0;
-//¼½©ñ¾¹¤ô¥­Â½Âà
+//æ’­æ”¾å™¨æ°´å¹³ç¿»è½‰
 var rotateYdeg = 0;
 
 var posIndex = -1;
@@ -10,7 +10,7 @@ var posList = [];
 
 var player = document.getElementById("player");
 
-//§Ö±¶Áä
+//å¿«æ·éµ
 document.addEventListener('keypress', logKey);
 
 function logKey(e) {
@@ -78,7 +78,7 @@ function logKey(e) {
 function ChangePlaySpeedRate(rate) {
     if (player.playbackRate == rate) player.playbackRate = 1;
     else player.playbackRate = rate;
-    $(".toast-body")[0].innerText = "¼½©ñ³t«×: " + rate;
+    $(".toast-body")[0].innerText = "æ’­æ”¾é€Ÿåº¦: " + rate;
     $(".toast").toast("show");
 }
 
@@ -122,7 +122,7 @@ function rotate(deg) {
     rotatedeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
 
-    $(".toast-body")[0].innerText = "Â½Âà¨¤«×: " + rotatedeg;
+    $(".toast-body")[0].innerText = "ç¿»è½‰è§’åº¦: " + rotatedeg;
     $(".toast").toast("show");
 }
 
@@ -130,7 +130,7 @@ function rotateY(deg) {
     rotateYdeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
 
-    $(".toast-body")[0].innerText = "¤ô¥­Â½Âà: " + rotatedeg;
+    $(".toast-body")[0].innerText = "æ°´å¹³ç¿»è½‰: " + rotatedeg;
     $(".toast").toast("show");
 }
 
@@ -141,7 +141,7 @@ function brightness(val) {
     b += val;
     $("video").css("filter", "brightness(" + b + "%)");
 
-    $(".toast-body")[0].innerText = "«G«×: " + b + "%";
+    $(".toast-body")[0].innerText = "äº®åº¦: " + b + "%";
     $(".toast").toast("show");
 }
 
@@ -149,7 +149,7 @@ function saturate(val) {
     s += val;
     $("video").css("filter", "saturate(" + s + "%)");
 
-    $(".toast-body")[0].innerText = "¹¡©M«×: " + s + "%";
+    $(".toast-body")[0].innerText = "é£½å’Œåº¦: " + s + "%";
     $(".toast").toast("show");
 }
 
@@ -157,6 +157,6 @@ function contrast(val) {
     c += val;
     $("video").css("filter", "contrast(" + c + "%)");
 
-    $(".toast-body")[0].innerText = "¹ï¤ñ«×: " + c + "%";
+    $(".toast-body")[0].innerText = "å°æ¯”åº¦: " + c + "%";
     $(".toast").toast("show");
 }
