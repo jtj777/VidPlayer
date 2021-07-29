@@ -79,7 +79,7 @@ function ChangePlaySpeedRate(rate) {
     if (player.playbackRate == rate) player.playbackRate = 1;
     else player.playbackRate = rate;
     $("#toast").innerText = "¼½©ñ³t«×: " + rate;
-    $(".toast").show();
+    $(".toast").toast("show");
 }
 
 function nextPos() {
