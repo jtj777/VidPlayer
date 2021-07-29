@@ -139,24 +139,28 @@ var s = 100;
 var c = 100;
 function brightness(val) {
     b += val;
-    $("video").css("filter", "brightness(" + b + "%)");
-
+    /*    $("video").css("filter", "brightness(" + b + "%)");*/
+    adjFilter();
     $(".toast-body")[0].innerText = "亮度: " + b + "%";
     $(".toast").toast("show");
 }
 
 function saturate(val) {
     s += val;
-    $("video").css("filter", "saturate(" + s + "%)");
-
+/*    $("video").css("filter", "saturate(" + s + "%)");*/
+    adjFilter();
     $(".toast-body")[0].innerText = "飽和度: " + s + "%";
     $(".toast").toast("show");
 }
 
 function contrast(val) {
     c += val;
-    $("video").css("filter", "contrast(" + c + "%)");
-
+/*    $("video").css("filter", "contrast(" + c + "%)");*/
+    adjFilter();
     $(".toast-body")[0].innerText = "對比度: " + c + "%";
     $(".toast").toast("show");
+}
+
+function adjFilter() {
+    $("video").css("filter", "brightness(" + b + "%);saturate(" + s + "%);contrast(" + c + "%);");
 }
