@@ -1,0 +1,78 @@
+﻿<html>
+<head>
+    <meta charset="UTF-8">
+    <title>VidPlayer</title>
+    <link rel="stylesheet" href="https://jtj777.github.io/VidPlayer/css/main.css">
+    <link rel="stylesheet" href="https://jtj777.github.io/VidPlayer/css/bootstrap5.min.css">
+    <script src="https://jtj777.github.io/VidPlayer/js/bootstrap5.bundle.min.js"></script>
+    <script src="https://jtj777.github.io/VidPlayer/js/jquery-3.3.1.min.js"></script>
+    <style>
+        .vidchaNav {
+            /*overflow: auto;*/
+            position: fixed;
+            /*text-align: center;*/
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body style="background-color:black">
+    <!-- chapter navigation / set start time in seconds -->
+    <section class="fixed-top">
+        <ul id="vidchas" class="vidchaNav">
+        </ul>
+    </section>
+
+    <!-- html5 video -->
+    <section class="video rounded">
+        <video id="player" class="d-none vidchaVideo" controls loop ontimeupdate="vidTimeUpdated()">
+        </video>
+    </section>
+
+    <section class="d-none fixed-bottom">
+        <div class="row">
+            <div class="col-2 form-floating">
+                <input class="form-control" id="loopA" value="0" style="height:5px" />
+                <label for="loopA">A</label>
+            </div>
+            <div class="col-2 form-floating">
+                <input class="form-control" id="loopB" value="0" style="height:5px" />
+                <label for="loopB">B</label>
+            </div>
+        </div>
+    </section>
+
+
+    <input id="holder" class="form-control" value="檔案請拖曳至此" />
+
+    <div class="toast">
+        <div id="toast" class="toast-body"></div>
+    </div>
+
+    <script src="https://jtj777.github.io/VidPlayer/js/main.js"></script>
+    <script src="https://jtj777.github.io/VidPlayer/js/vidctrl.js"></script>
+
+    <script id="MainFunction">
+        var holder = document.getElementById('holder');
+        holder.ondrop = function (e) {
+            e.preventDefault();
+
+            reader = new FileReader();
+            reader.readAsText(e.dataTransfer.files[0]);
+            reader.onload = function (event) {
+                var vidObj = JSON.parse(event.target.result);
+
+                $("#player").removeClass("d-none");
+                $("#holder").addClass("d-none");
+
+                initPlayer(
+                    vidObj.file,
+                    vidObj.pos
+                );
+
+                $.getScript("https://jtj777.github.io/VidPlayer/js/vidcha.js");
+            };
+        }
+    </script>
+</body>
+</html>
