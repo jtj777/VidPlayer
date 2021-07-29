@@ -162,5 +162,5 @@ function contrast(val) {
 }
 
 function adjFilter() {
-    $("video").css("filter", "brightness(" + b + "%);saturate(" + s + "%);contrast(" + c + "%);");
+    $("video").css("filter", "brightness(" + b + "%) saturate(" + s + "%) contrast(" + c + "%)");
 }
