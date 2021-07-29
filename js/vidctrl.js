@@ -64,13 +64,13 @@ function logKey(e) {
             break;
         case 'Digit2':
             if (window.event.shiftKey)
-                brightness(-10);
-            else brightness(10);
+                saturate(-10);
+            else saturate(10);
             break;
         case 'Digit3':
             if (window.event.shiftKey)
-                brightness(-10);
-            else brightness(10);
+                contrast(-10);
+            else contrast(10);
             break;
     }
 }
