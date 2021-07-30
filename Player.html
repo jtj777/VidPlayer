@@ -7,16 +7,11 @@
     <script src="https://jtj777.github.io/VidPlayer/js/bootstrap5.bundle.min.js"></script>
     <script src="https://jtj777.github.io/VidPlayer/js/jquery-3.3.1.min.js"></script>
     <style>
-        .vidchaNav {
-            /*overflow: auto;*/
-            position: fixed;
-            /*text-align: center;*/
-            z-index: 100;
-        }
+
     </style>
 </head>
 
-<body style="background-color:black" ondragleave="ond">
+<body style="background-color:black">
     <!-- chapter navigation / set start time in seconds -->
     <section class="fixed-top">
         <ul id="vidchas" class="vidchaNav">
@@ -25,25 +20,25 @@
 
     <!-- html5 video -->
     <section class="video rounded">
-        <video id="player" class="d-none vidchaVideo" controls loop ontimeupdate="vidTimeUpdated()">
+        <video id="player" class="d-none vidchaVideo" controls ontimeupdate="vidTimeUpdated()">
         </video>
     </section>
 
     <section class="d-none fixed-bottom">
         <div class="row">
             <div class="col-2 form-floating">
-                <input class="form-control" id="loopA" value="0" style="height:5px" />
+                <input class="form-control" id="loopA" value="0" style="height:3px" />
                 <label for="loopA">A</label>
             </div>
             <div class="col-2 form-floating">
-                <input class="form-control" id="loopB" value="0" style="height:5px" />
+                <input class="form-control" id="loopB" value="0" style="height:3px" />
                 <label for="loopB">B</label>
             </div>
         </div>
     </section>
 
 
-    <input id="holder" class="form-control" value="檔案請拖曳至此" />
+    <input id="holder" type="text" class="form-control" value="檔案請拖曳至此" />
 
 
     <div class="toast" style="position: absolute; top: 80%; right: 0;">
