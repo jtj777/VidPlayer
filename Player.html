@@ -6,13 +6,27 @@
     <link rel="stylesheet" href="https://jtj777.github.io/VidPlayer/css/bootstrap5.min.css">
     <script src="https://jtj777.github.io/VidPlayer/js/bootstrap5.bundle.min.js"></script>
     <script src="https://jtj777.github.io/VidPlayer/js/jquery-3.3.1.min.js"></script>
-    <style>
-
-    </style>
 </head>
 
 <body style="background-color:black">
-    <!-- chapter navigation / set start time in seconds -->
+    <!--檔案讀取-->
+    <div id="holder" style="background-color: #c8dadf; position: relative; padding: 100px 20px; outline: 2px dashed #92b0b3; outline-offset: -10px; -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear; transition: outline-offset .15s ease-in-out, background-color .15s linear;">
+        <div class="text-center">
+            <svg width="50" height="43">
+                <path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"></path>
+            </svg>
+            <label>將檔案拖曳至此</label>
+        </div>
+    </div>
+
+    <!--提示視窗-->
+    <div class="toast" style="z-index:9999 ;position: absolute; top: 80%; right: 80%;">
+        <div class="toast-body">
+
+        </div>
+    </div>
+
+    <!-- 章節 -->
     <section class="fixed-top">
         <ul id="vidchas" class="vidchaNav">
         </ul>
@@ -24,6 +38,7 @@
         </video>
     </section>
 
+    <!--AB-Loop-->
     <section class="d-none fixed-bottom">
         <div class="row">
             <div class="col-2 form-floating">
@@ -36,30 +51,24 @@
             </div>
         </div>
     </section>
-
-
-    <input id="holder" type="text" class="form-control" value="檔案請拖曳至此" />
-
-
-    <div class="toast" style="position: absolute; top: 80%; right: 0;">
-        <div class="toast-body">
-            1212
-        </div>
-    </div>
-
     <script src="https://jtj777.github.io/VidPlayer/js/main.js"></script>
     <script src="https://jtj777.github.io/VidPlayer/js/vidctrl.js"></script>
-
-    <script id="MainFunction">
+    <script>
         var holder = document.getElementById('holder');
+        var reader = new FileReader();
 
-
+        //防止拖曳開新頁面
+        holder.ondragover = function (e) {
+            e.preventDefault();
+        }
 
         holder.ondrop = function (e) {
             e.preventDefault();
 
-            reader = new FileReader();
-            reader.readAsText(e.dataTransfer.files[0]);
+            var file = e.dataTransfer.files[0];
+            document.title = file.name.substring(0, file.name.indexOf('.'));
+
+            reader.readAsText(file);
             reader.onload = function (event) {
                 var vidObj = JSON.parse(event.target.result);
 
@@ -71,8 +80,12 @@
                     vidObj.pos
                 );
 
+                //要先建立章節按鈕才能導入相關的按鈕事件
                 $.getScript("https://jtj777.github.io/VidPlayer/js/vidcha.js");
             };
+
+            //提示視窗的初始設定
+            $('.toast').toast({ delay: 1000 });
         }
     </script>
 </body>
