@@ -5,8 +5,8 @@ window.onresize = function (event) {
 
 //
 function vidTimeUpdated() {
-    var title = document.title.split(':')[0];
-    document.title = title + ":" + Math.floor(player.currentTime);
+    var title = document.title.split(' : ')[0];
+    document.title = title + " : " + Math.floor(player.currentTime);
 
     var lb = parseInt(document.getElementById("loopB").value);
     if (lb < 1)
