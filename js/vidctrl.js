@@ -68,8 +68,8 @@ function logKey(e) {
 
         case 'KeyS':
             if (window.event.shiftKey)
-                ChangePlaySpeedRate(0.75);
-            else ChangePlaySpeedRate(1.5);
+                Speed(0.75);
+            else Speed(1.5);
             break;
 
         case 'Digit1':
@@ -90,13 +90,13 @@ function logKey(e) {
     }
 }
 
-function ChangePlaySpeedRate(rate) {
+function Speed(rate) {
     if (player.playbackRate == rate)
         player.playbackRate = 1;
     else
         player.playbackRate = rate;
 
-    $('#speed').val = player.playbackRate;
+    $('#speed').val(player.playbackRate*100 +"%");
     $(".toast-body")[0].innerText = "播放速度: " + player.playbackRate;
     $(".toast").toast("show");
 }
@@ -141,9 +141,8 @@ function rotate(deg) {
     rotatedeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
 
-
-    $('#rotate').val = rotatedeg;
-    $('#rotateY').val = rotateYdeg;
+    $('#rotate').val(rotatedeg);
+    $('#rotateY').val(rotateYdeg);
     $(".toast-body")[0].innerText = "翻轉角度: " + rotatedeg;
     $(".toast").toast("show");
 }
@@ -152,8 +151,8 @@ function rotateY(deg) {
     rotateYdeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
 
-    $('#rotate').val = rotatedeg;
-    $('#rotateY').val = rotateYdeg;
+    $('#rotate').val(rotatedeg);
+    $('#rotateY').val(rotateYdeg);
     $(".toast-body")[0].innerText = "水平翻轉: " + rotatedeg;
     $(".toast").toast("show");
 }
