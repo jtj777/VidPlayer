@@ -151,9 +151,10 @@ function rotateY(deg) {
     rotateYdeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
 
+    var m = (rotateYdeg % 360 == 0) ? "False" : "True";
     $('#rotate').val(rotatedeg);
-    $('#rotateY').val(rotateYdeg);
-    $(".toast-body")[0].innerText = "水平翻轉: " + rotatedeg;
+    $('#rotateY').val(m);
+    $(".toast-body")[0].innerText = "鏡像" + m;
     $(".toast").toast("show");
 }
 

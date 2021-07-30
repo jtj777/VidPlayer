@@ -38,8 +38,40 @@
         </video>
     </section>
 
+
+    <!--menu-->
+    <button id="menu" class="fixed-bottom btn btn-info d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-backdrop="false" id="offcanvasScrolling" style="height:6vh">
+        <div class="offcanvas-body row">
+            <button class="col-1 form-floating btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+            <div class="col-2 form-floating">
+                <input class="form-control" id="loopA" value="0" style="height:1vh" />
+                <label for="loopA">A</label>
+            </div>
+            <div class="col-2 form-floating">
+                <input class="form-control" id="loopB" value="0" style="height:1vh" />
+                <label for="loopB">B</label>
+            </div>
+
+            <div class="col-1 form-floating">
+                <input class="form-control" id="rotate" value="0" style="height:1vh" />
+                <label for="rotate">度</label>
+            </div>
+            <div class="col-1 form-floating">
+                <input class="form-control" id="rotateY" value="False" style="height:1vh" />
+                <label for="rotateY">鏡</label>
+            </div>
+            <div class="col-1 form-floating">
+                <input class="form-control" id="speed" value="100%" style="height:1vh" />
+                <label for="speed">速</label>
+            </div>
+        </div>
+    </div>
+
     <!--AB-Loop-->
-    <section id="abloop" class="d-none fixed-bottom">
+    <!--<section id="abloop" class="d-none fixed-bottom">
         <div class="row">
             <div class="col-2 form-floating">
                 <input class="form-control" id="loopA" value="0" style="height:3px" />
@@ -50,21 +82,20 @@
                 <label for="loopB">B</label>
             </div>
 
-
             <div class="col-1 form-floating">
                 <input class="form-control" id="rotate" value="0" style="height:3px" />
                 <label for="rotate">度</label>
             </div>
             <div class="col-1 form-floating">
-                <input class="form-control" id="rotateY" value="0" style="height:3px" />
+                <input class="form-control" id="rotateY" value="False" style="height:3px" />
                 <label for="rotateY">鏡</label>
             </div>
             <div class="col-1 form-floating">
-                <input class="form-control" id="speed" value="0" style="height:3px" />
+                <input class="form-control" id="speed" value="100%" style="height:3px" />
                 <label for="speed">速</label>
             </div>
         </div>
-    </section>
+    </section>-->
     <script src="https://jtj777.github.io/VidPlayer/js/main.js"></script>
     <script src="https://jtj777.github.io/VidPlayer/js/vidctrl.js"></script>
     <script>
@@ -118,6 +149,8 @@
             //隱藏檔案拖曳區塊
             $("#player").removeClass("d-none");
             $("#holder").addClass("d-none");
+
+            $("#menu").removeClass("d-none");
         }
     </script>
 </body>
