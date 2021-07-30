@@ -95,6 +95,8 @@ function ChangePlaySpeedRate(rate) {
         player.playbackRate = 1;
     else
         player.playbackRate = rate;
+
+    $('#speed').val = player.playbackRate;
     $(".toast-body")[0].innerText = "播放速度: " + player.playbackRate;
     $(".toast").toast("show");
 }
@@ -131,14 +133,17 @@ function MoveDown() {
     player.style.top = (topPx += 20) + "px";
 }
 
-function jump(sec) {
-    player.currentTime = sec;
-}
+//function jump(sec) {
+//    player.currentTime = sec;
+//}
 
 function rotate(deg) {
     rotatedeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
 
+
+    $('#rotate').val = rotatedeg;
+    $('#rotateY').val = rotateYdeg;
     $(".toast-body")[0].innerText = "翻轉角度: " + rotatedeg;
     $(".toast").toast("show");
 }
@@ -147,6 +152,8 @@ function rotateY(deg) {
     rotateYdeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
 
+    $('#rotate').val = rotatedeg;
+    $('#rotateY').val = rotateYdeg;
     $(".toast-body")[0].innerText = "水平翻轉: " + rotatedeg;
     $(".toast").toast("show");
 }
@@ -156,7 +163,7 @@ var s = 100;
 var c = 100;
 function brightness(val) {
     b += val;
-    /*    $("video").css("filter", "brightness(" + b + "%)");*/
+
     adjFilter();
     $(".toast-body")[0].innerText = "亮度: " + b + "%";
     $(".toast").toast("show");
@@ -164,7 +171,7 @@ function brightness(val) {
 
 function saturate(val) {
     s += val;
-    /*    $("video").css("filter", "saturate(" + s + "%)");*/
+
     adjFilter();
     $(".toast-body")[0].innerText = "飽和度: " + s + "%";
     $(".toast").toast("show");
@@ -172,7 +179,7 @@ function saturate(val) {
 
 function contrast(val) {
     c += val;
-    /*    $("video").css("filter", "contrast(" + c + "%)");*/
+
     adjFilter();
     $(".toast-body")[0].innerText = "對比度: " + c + "%";
     $(".toast").toast("show");

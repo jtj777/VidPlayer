@@ -10,12 +10,12 @@
 
 <body style="background-color:black">
     <!--檔案讀取-->
-    <div id="holder" style="background-color: #c8dadf; position: relative; padding: 100px 20px; outline: 2px dashed #92b0b3; outline-offset: -10px; -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear; transition: outline-offset .15s ease-in-out, background-color .15s linear;">
+    <div id="holder" style="height:100%; background-color: #def; position: relative; padding: 100px 20px; outline: 2px dashed #92b0b3; outline-offset: -10px; -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear; transition: outline-offset .15s ease-in-out, background-color .15s linear;">
         <div class="text-center">
             <svg width="50" height="43">
                 <path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"></path>
-            </svg>
-            <strong>將檔案拖曳至此</strong>
+            </svg><br />
+            <strong>將JSON檔案或文字拖曳至此</strong>
         </div>
     </div>
 
@@ -49,45 +49,75 @@
                 <input class="form-control" id="loopB" value="0" style="height:3px" />
                 <label for="loopB">B</label>
             </div>
+
+
+            <div class="col-1 form-floating">
+                <input class="form-control" id="rotate" value="0" style="height:3px" />
+                <label for="rotate">度</label>
+            </div>
+            <div class="col-1 form-floating">
+                <input class="form-control" id="rotateY" value="0" style="height:3px" />
+                <label for="rotateY">鏡</label>
+            </div>
+            <div class="col-1 form-floating">
+                <input class="form-control" id="speed" value="0" style="height:3px" />
+                <label for="speed">速</label>
+            </div>
         </div>
     </section>
     <script src="https://jtj777.github.io/VidPlayer/js/main.js"></script>
     <script src="https://jtj777.github.io/VidPlayer/js/vidctrl.js"></script>
     <script>
-        var holder = document.getElementById('holder');
-        var reader = new FileReader();
-
-        holder.ondrop = onDragover;
-        holder.ondragover = onDragover;
-        player.ondrop = onDragover;
-        player.ondragover = onDragover;
-
-        function onDragover(e) {
-            e.preventDefault();
-
-            var file = e.dataTransfer.files[0];
-            if (file == undefined) return;
-
-            document.title = file.name.substring(0, file.name.indexOf('.'));
-
-            reader.readAsText(file);
-            reader.onload = function (event) {
-                var vidObj = JSON.parse(event.target.result);
-
-                $("#player").removeClass("d-none");
-                $("#holder").addClass("d-none");
-
-                initPlayer(
-                    vidObj.file,
-                    vidObj.pos
-                );
-
-                //要先建立章節按鈕才能導入相關的按鈕事件
-                $.getScript("https://jtj777.github.io/VidPlayer/js/vidcha.js");
-            };
-
+        window.onload = () => {
+            //整體視窗註冊拖曳監聽
+            window.ondrop = onDrop;
+            window.ondragover = (e) => e.preventDefault();
             //提示視窗的初始設定
             $('.toast').toast({ delay: 1000 });
+        }
+
+        function onDrop(evt) {
+            evt.preventDefault();
+
+            var reader = new FileReader();
+
+            var file = evt.dataTransfer.files[0];
+            if (file == undefined) {
+                evt.dataTransfer.items[0].getAsString(function (json) {
+                    //讀取JSON檔
+                    LoadJson(json);
+                });
+                return;
+            }
+
+
+
+            //讀取JSON檔
+            reader.readAsText(file);
+            reader.onload = (evt) => {
+                LoadJson(evt.target.result);
+            }
+        }
+
+        function LoadJson(json) {
+            var vidObj = JSON.parse(json);
+
+            //設定
+            //視窗標題設為檔名
+            document.title = vidObj.file.substring(vidObj.file.lastIndexOf('\\') + 1, vidObj.file.indexOf('.'));
+
+            //初始化章節清單
+            initPlayer(
+                vidObj.file,
+                vidObj.pos
+            );
+
+            //*要先建立章節清單才能導入相關的按鈕事件JS
+            $.getScript("https://jtj777.github.io/VidPlayer/js/vidcha.js");
+
+            //隱藏檔案拖曳區塊
+            $("#player").removeClass("d-none");
+            $("#holder").addClass("d-none");
         }
     </script>
 </body>
