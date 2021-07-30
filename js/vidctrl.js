@@ -91,9 +91,11 @@ function logKey(e) {
 }
 
 function ChangePlaySpeedRate(rate) {
-    if (player.playbackRate == rate) player.playbackRate = 1;
-    else player.playbackRate = rate;
-    $(".toast-body")[0].innerText = "播放速度: " + rate;
+    if (player.playbackRate == rate)
+        player.playbackRate = 1;
+    else
+        player.playbackRate = rate;
+    $(".toast-body")[0].innerText = "播放速度: " + player.playbackRate;
     $(".toast").toast("show");
 }
 
