@@ -16,42 +16,55 @@ document.addEventListener('keypress', logKey);
 function logKey(e) {
 
     switch (e.code) {
-        case 'Numpad4':
+        case 'Digit7':
             prePos();
             return;
-        case 'Numpad5':
+
+        case 'Digit8':
             player.currentTime = posList[posIndex];
             return;
-        case 'Numpad6':
+
+        case 'Digit9':
             nextPos();
             return;
+
         case 'Comma':
             rotate(-10);
             return;
+
         case 'Period':
             rotate(10);
             return;
+
         case 'Slash':
             rotateY(180);
             return;
+
         case 'KeyL':
             if (window.event.shiftKey)
                 Fastward(60);
             else
                 Fastward(10);
             return;
+
         case 'KeyJ':
             if (window.event.shiftKey)
                 Reverse(60);
             else
                 Reverse(10);
             return;
-        case 'Numpad8':
-            MoveTop();
-            return;
-        case 'Numpad2':
-            MoveDown();
-            return;
+
+        case 'KeyA':
+            showABLoop();
+            break;
+
+        //case 'Numpad8':
+        //    MoveTop();
+        //    return;
+
+        //case 'Numpad2':
+        //    MoveDown();
+        //    return;
 
         case 'KeyS':
             ChangePlaySpeedRate(1.5);
@@ -147,7 +160,7 @@ function brightness(val) {
 
 function saturate(val) {
     s += val;
-/*    $("video").css("filter", "saturate(" + s + "%)");*/
+    /*    $("video").css("filter", "saturate(" + s + "%)");*/
     adjFilter();
     $(".toast-body")[0].innerText = "飽和度: " + s + "%";
     $(".toast").toast("show");
@@ -155,7 +168,7 @@ function saturate(val) {
 
 function contrast(val) {
     c += val;
-/*    $("video").css("filter", "contrast(" + c + "%)");*/
+    /*    $("video").css("filter", "contrast(" + c + "%)");*/
     adjFilter();
     $(".toast-body")[0].innerText = "對比度: " + c + "%";
     $(".toast").toast("show");
@@ -163,4 +176,8 @@ function contrast(val) {
 
 function adjFilter() {
     $("video").css("filter", "brightness(" + b + "%) saturate(" + s + "%) contrast(" + c + "%)");
+}
+
+function showABLoop() {
+    $('#abloop').removeClass('d-none');
 }
