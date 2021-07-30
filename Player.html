@@ -57,15 +57,17 @@
         var holder = document.getElementById('holder');
         var reader = new FileReader();
 
-        //防止拖曳開新頁面
-        holder.ondragover = function (e) {
-            e.preventDefault();
-        }
+        holder.ondrop = onDragover;
+        holder.ondragover = onDragover;
+        player.ondrop = onDragover;
+        player.ondragover = onDragover;
 
-        holder.ondrop = function (e) {
+        function onDragover(e) {
             e.preventDefault();
 
             var file = e.dataTransfer.files[0];
+            if (file == undefined) return;
+
             document.title = file.name.substring(0, file.name.indexOf('.'));
 
             reader.readAsText(file);

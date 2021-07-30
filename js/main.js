@@ -1,4 +1,3 @@
-var _title = "";
 //視窗縮放
 window.onresize = function (event) {
     this.setFitSize();
@@ -6,8 +5,8 @@ window.onresize = function (event) {
 
 //
 function vidTimeUpdated() {
-    if (_title == "") _title = document.title;
-    document.title = _title + " [" + Math.floor(player.currentTime) + "]";
+    var title = document.title.split(':')[0];
+    document.title = title + ":" + Math.floor(player.currentTime);
 
     var lb = parseInt(document.getElementById("loopB").value);
     if (lb < 1)
