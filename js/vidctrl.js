@@ -67,7 +67,9 @@ function logKey(e) {
         //    return;
 
         case 'KeyS':
-            ChangePlaySpeedRate(1.5);
+            if (window.event.shiftKey)
+                ChangePlaySpeedRate(0.75);
+            else ChangePlaySpeedRate(1.5);
             break;
 
         case 'Digit1':
