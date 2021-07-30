@@ -165,6 +165,7 @@ function brightness(val) {
     b += val;
 
     adjFilter();
+    $('#bright').val(s);
     $(".toast-body")[0].innerText = "亮度: " + b + "%";
     $(".toast").toast("show");
 }
@@ -173,6 +174,7 @@ function saturate(val) {
     s += val;
 
     adjFilter();
+    $('#saturation').val(s);
     $(".toast-body")[0].innerText = "飽和度: " + s + "%";
     $(".toast").toast("show");
 }
@@ -181,6 +183,7 @@ function contrast(val) {
     c += val;
 
     adjFilter();
+    $('#contrast').val(s);
     $(".toast-body")[0].innerText = "對比度: " + c + "%";
     $(".toast").toast("show");
 }
