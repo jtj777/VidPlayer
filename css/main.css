@@ -41,8 +41,8 @@ body {
 }
 
 .vidchaNav .active {
-  background: #0FF;
-  color: #FFFFFF;
+    background: #F44336;
+    color: #FFFFFF;
 }
 
 @media (max-width: 40em) {
