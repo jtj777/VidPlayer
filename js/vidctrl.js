@@ -179,5 +179,9 @@ function adjFilter() {
 }
 
 function showABLoop() {
-    $('#abloop').removeClass('d-none');
+    if ($('#abloop').hasClass('d-none')) {
+        $('#abloop').removeClass('d-none');
+    } else {
+        $('#abloop').addClass('d-none');
+    }
 }
