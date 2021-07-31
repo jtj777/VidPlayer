@@ -207,6 +207,8 @@ function vidTimeUpdated() {
     var title = document.title.split(' : ')[0];
     document.title = title + " : " + Math.floor(player.currentTime);
 
+    $('#loopB').val(player.currentTime);
+
     //迴圈播放
     if (loopA >= 0 && loopB > la) {
         if (player.currentTime > lb) {
