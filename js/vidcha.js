@@ -53,7 +53,7 @@ function setActive(cha) {
 
 // skip to time in timeline
 function skipTime(time) {
-    vid.play();
+    //vid.play();
     vid.pause();
     vid.currentTime = time;
     vid.play();

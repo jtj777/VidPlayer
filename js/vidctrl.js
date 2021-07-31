@@ -1,12 +1,26 @@
-//播放器上下位置
-var topPx = 0;
-//撥放器角度
-var rotatedeg = 0;
-//播放器水平翻轉
-var rotateYdeg = 0;
+var setting = {
+    topPx: 0,
+    rotatedeg: 0,
+    rotateYdeg: 0,
+    posIndex: -1,
+    posList: [],
+    speed: 1,
+    brightness: 100,
+    saturate: 100,
+    contrast: 100,
+    isLoop: false,
+    loopA: -1,
+    loopB: -1
+}
+////播放器上下位置
+//var topPx = 0;
+////撥放器角度
+//var rotatedeg = 0;
+////播放器水平翻轉
+//var rotateYdeg = 0;
 
-var posIndex = -1;
-var posList = [];
+//var posIndex = -1;
+//var posList = [];
 
 var player = document.getElementById("player");
 
@@ -21,7 +35,7 @@ function logKey(e) {
             return;
 
         case 'Digit8':
-            player.currentTime = posList[posIndex];
+            player.currentTime = setting.posList[setting.posIndex];
             return;
 
         case 'Digit9':
@@ -37,21 +51,21 @@ function logKey(e) {
             return;
 
         case 'Slash':
-            rotateY(180);
+            flip();
             return;
 
         case 'KeyL':
             if (window.event.shiftKey)
-                Fastward(60);
+                fastward(60);
             else
-                Fastward(10);
+                fastward(10);
             return;
 
         case 'KeyJ':
             if (window.event.shiftKey)
-                Reverse(60);
+                reverse(60);
             else
-                Reverse(10);
+                reverse(10);
             return;
 
         //case 'Numpad8':
@@ -64,8 +78,8 @@ function logKey(e) {
 
         case 'KeyS':
             if (window.event.shiftKey)
-                Speed(0.75);
-            else Speed(1.5);
+                speed(0.75);
+            else speed(1.5);
             break;
 
         case 'Digit1':
@@ -73,11 +87,13 @@ function logKey(e) {
                 brightness(-10);
             else brightness(10);
             break;
+
         case 'Digit2':
             if (window.event.shiftKey)
                 saturate(-10);
             else saturate(10);
             break;
+
         case 'Digit3':
             if (window.event.shiftKey)
                 contrast(-10);
@@ -86,131 +102,131 @@ function logKey(e) {
     }
 }
 
-function Speed(rate) {
+function speed(rate) {
     if (player.playbackRate == rate)
         player.playbackRate = 1;
     else
         player.playbackRate = rate;
 
+    setting.speed = player.playbackRate;
     $('#speed').val(player.playbackRate * 100 + "%");
     $(".toast-body")[0].innerText = "播放速度: " + player.playbackRate;
     $(".toast").toast("show");
 }
 
 function nextPos() {
-    if (posIndex < posList.length) {
-        posIndex += 1;
-        player.currentTime = posList[posIndex];
+    if (setting.posIndex < setting.posList.length) {
+        setting.posIndex += 1;
+        player.currentTime = setting.posList[setting.posIndex];
     }
 }
 
 function prePos() {
-    if (posIndex > 0) {
-        posIndex -= 1;
-        player.currentTime = posList[posIndex];
+    if (setting.posIndex > 0) {
+        setting.posIndex -= 1;
+        player.currentTime = setting.posList[setting.posIndex];
     }
 }
 
-function Fastward(t) {
-    player.currentTime += t;
+function fastward(sec) {
+    player.currentTime += sec;
 }
 
-function Reverse(t) {
-    player.currentTime -= t;
+function reverse(sec) {
+    player.currentTime -= sec;
 }
 
-function MoveTop() {
+function moveTop() {
     player.style.position = "absolute";
-    player.style.top = (topPx -= 20) + "px";
+    player.style.top = (setting.topPx -= 20) + "px";
 }
 
-function MoveDown() {
+function moveDown() {
     player.style.position = "absolute";
-    player.style.top = (topPx += 20) + "px";
+    player.style.top = (setting.topPx += 20) + "px";
 }
-
-//function jump(sec) {
-//    player.currentTime = sec;
-//}
 
 function rotate(deg) {
-    rotatedeg += deg;
-    player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
+    setting.rotatedeg += deg;
+    player.style.transform = "rotate(" + setting.rotatedeg + "deg) rotateY(" + setting.rotateYdeg + "deg)";
 
-    var m = (rotateYdeg % 360 == 0) ? "False" : "True";
-    $('#rotate').val(rotatedeg);
+    var m = (setting.rotateYdeg % 360 == 0) ? "False" : "True";
+    $('#rotate').val(setting.rotatedeg);
     $('#rotateY').val(m);
-    $(".toast-body")[0].innerText = "翻轉角度: " + rotatedeg;
+    $(".toast-body")[0].innerText = "翻轉角度: " + setting.rotatedeg;
     $(".toast").toast("show");
 }
 
-function rotateY(deg) {
-    rotateYdeg += deg;
-    player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
+function flip() {
+    if (setting.rotateYdeg == 0) {
+        setting.rotateYdeg = 180;
+    } else {
+        setting.rotateYdeg = 0;
+    }
+    player.style.transform = "rotate(" + setting.rotatedeg + "deg) rotateY(" + setting.rotateYdeg + "deg)";
 
-    var m = (rotateYdeg % 360 == 0) ? "False" : "True";
-    $('#rotate').val(rotatedeg);
+    var m = (setting.rotateYdeg % 360 == 0) ? "False" : "True";
+    $('#rotate').val(setting.rotatedeg);
     $('#rotateY').val(m);
     $(".toast-body")[0].innerText = "鏡像" + m;
     $(".toast").toast("show");
 }
 
-var b = 100;
-var s = 100;
-var c = 100;
+//var b = 100;
+//var s = 100;
+//var c = 100;
 function brightness(val) {
-    b += val;
+    setting.brightness += val;
 
     adjFilter();
-    $('#bright').val(b + "%");
-    $(".toast-body")[0].innerText = "亮度: " + b + "%";
+    $('#bright').val(setting.brightness + "%");
+    $(".toast-body")[0].innerText = "亮度: " + setting.brightness + "%";
     $(".toast").toast("show");
 }
 
 function saturate(val) {
-    s += val;
+    setting.saturate += val;
 
     adjFilter();
-    $('#saturation').val(s + "%");
-    $(".toast-body")[0].innerText = "飽和度: " + s + "%";
+    $('#saturation').val(setting.saturate + "%");
+    $(".toast-body")[0].innerText = "飽和度: " + setting.saturate + "%";
     $(".toast").toast("show");
 }
 
 function contrast(val) {
-    c += val;
+    setting.contrast += val;
 
     adjFilter();
-    $('#contrast').val(c + "%");
-    $(".toast-body")[0].innerText = "對比度: " + c + "%";
+    $('#contrast').val(setting.contrast + "%");
+    $(".toast-body")[0].innerText = "對比度: " + setting.contrast + "%";
     $(".toast").toast("show");
 }
 
 function adjFilter() {
-    $("video").css("filter", "brightness(" + b + "%) saturate(" + s + "%) contrast(" + c + "%)");
+    $("video").css("filter", "brightness(" + setting.brightness + "%) saturate(" + setting.saturate + "%) contrast(" + setting.contrast + "%)");
 }
 
 //視窗縮放
-window.onresize = function (event) {
+window.onresize = function () {
     this.setFitSize();
 };
 
-var loopA = -1;
-var loopB = -1;
-var isLoopEnable = false;
+//var loopA = -1;
+//var loopB = -1;
+//var isLoopEnable = false;
 function enableLoop(a, b) {
-    loopA = a;
-    loopB = b;
-    isLoopEnable = true;
+    setting.loopA = a;
+    setting.loopA = b;
+    setting.isLoop = true;
     player.currentTime = a;
 }
 
 function disableLoop() {
-    loopA = -1;
-    loopB = -1;
-    isLoopEnable = false;
+    setting.loopA = -1;
+    setting.loopB = -1;
+    setting.isLoop = false;
 }
 
-//
 function vidTimeUpdated() {
     //修改標題
     var title = document.title.split(' : ')[0];
@@ -221,9 +237,9 @@ function vidTimeUpdated() {
     }
 
     //迴圈播放
-    if (isLoopEnable && loopA >= 0 && loopB > loopA) {
-        if (player.currentTime > loopB) {
-            player.currentTime = loopA;
+    if (isLoopEnable && setting.loopA >= 0 && setting.loopB > setting.loopA) {
+        if (player.currentTime > setting.loopB) {
+            player.currentTime = setting.loopA;
         }
     }
 }
@@ -247,7 +263,7 @@ function initPlayer(vidSrc, pos) {
         var p1 = c[0];
         var p2 = c[1];
         content += "<li class='shadow' data-start='" + p2 + "'>" + p1 + "</li>";
-        posList.push(p2);
+        setting.posList.push(p2);
     }
     var VidPos = document.getElementById("vidchas");
     VidPos.innerHTML = content;

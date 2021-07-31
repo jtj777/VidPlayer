@@ -239,7 +239,9 @@
             adjFilter()
 
             rotate(vidObj.loop.r);
-            rotateY(vidObj.loop.ry ? 180 : 0);
+            if (vidObj.loop.ry) {
+                flip();
+            }
 
             enableLoop(vidObj.loop.a, vidObj.loop.b);
 
