@@ -214,7 +214,7 @@ function enableABLoop(a, b) {
     setting.loopB = b;
     setting.isABLoop = true;
     player.currentTime = a;
-    showToast("設定Loop" + setting.loopA + "~" + setting.loopB);
+    showToast("設定Loop");
 }
 
 function disableABLoop() {
