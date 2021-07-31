@@ -39,7 +39,7 @@
     </section>
 
     <!--展開設定面板的按鈕-->
-    <button id="menu" class="fixed-bottom btn btn-secondary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
+    <button id="menu" class="fixed-bottom btn btn-secondary btn-sm d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
 
     <!--設定面板-->
     <div class="offcanvas offcanvas-bottom" data-bs-backdrop="false" id="offcanvasScrolling" style="height:7vh">
@@ -48,7 +48,6 @@
             <button class="col-1 form-floating btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 
             <div class="col-3 form-floating">
-
                 <div class="input-group input-group-sm">
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopA">A</button>
                     <input id="loopA" class="form-control">
@@ -60,9 +59,6 @@
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopBAdd">＋</button>
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopBSub">－</button>
                 </div>
-
-
-
             </div>
 
             <div class="col-2 form-floating">
@@ -252,11 +248,14 @@
 
         function EnableLoopMode(vidObj) {
             player.src = vidObj.file;
-            Speed(vidObj.loop.speed);
-            b = vidObj.loop.brightness;
-            s = vidObj.loop.saturation;
-            c = vidObj.loop.contrast;
+            speed(vidObj.loop.speed);
+            setting.brightness = vidObj.loop.brightness;
+            setting.saturate = vidObj.loop.saturation;
+            setting.contrast = vidObj.loop.contrast;
             adjFilter()
+
+            setting.rotatedeg = 0;
+            setting.rotateYdeg = 0;
 
             rotate(vidObj.loop.r);
             if (vidObj.loop.ry) {

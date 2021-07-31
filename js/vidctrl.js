@@ -103,13 +103,18 @@ function hotKey(e) {
     }
 }
 
+function showToast(text) {
+    $(".toast-body")[0].innerText = text;
+    $(".toast").toast("show");
+}
+
 function speed(rate) {
     player.playbackRate = (player.playbackRate == rate ? 1 : rate);
 
     setting.speed = player.playbackRate;
     $('#speed').val(player.playbackRate * 100 + "%");
-    $(".toast-body")[0].innerText = "播放速度: " + player.playbackRate;
-    $(".toast").toast("show");
+
+    showToast("播放速度: " + player.playbackRate);
 }
 
 function nextPos() {
@@ -128,10 +133,12 @@ function prePos() {
 
 function fastward(sec) {
     player.currentTime += sec;
+    showToast("快轉" + sec + "秒");
 }
 
 function reverse(sec) {
     player.currentTime -= sec;
+    showToast("倒轉轉" + sec + "秒");
 }
 
 function moveTop() {
@@ -151,8 +158,8 @@ function rotate(deg) {
     var m = (setting.rotateYdeg % 360 == 0) ? "False" : "True";
     $('#rotate').val(setting.rotatedeg);
     $('#rotateY').val(m);
-    $(".toast-body")[0].innerText = "翻轉角度: " + setting.rotatedeg;
-    $(".toast").toast("show");
+
+    showToast("翻轉角度: " + setting.rotatedeg);
 }
 
 function flip() {
@@ -163,11 +170,10 @@ function flip() {
     }
     player.style.transform = "rotate(" + setting.rotatedeg + "deg) rotateY(" + setting.rotateYdeg + "deg)";
 
-    var m = (setting.rotateYdeg % 360 == 0) ? "False" : "True";
+    var m = (setting.rotateYdeg % 360 != 0);
     $('#rotate').val(setting.rotatedeg);
     $('#rotateY').val(m);
-    $(".toast-body")[0].innerText = "鏡像" + m;
-    $(".toast").toast("show");
+    showToast(m ? "設為鏡像" : "取消鏡像");
 }
 
 function brightness(val) {
@@ -175,8 +181,7 @@ function brightness(val) {
 
     adjFilter();
     $('#bright').val(setting.brightness + "%");
-    $(".toast-body")[0].innerText = "亮度: " + setting.brightness + "%";
-    $(".toast").toast("show");
+    showToast("亮度: " + setting.brightness + "%");
 }
 
 function saturate(val) {
@@ -184,8 +189,7 @@ function saturate(val) {
 
     adjFilter();
     $('#saturation').val(setting.saturate + "%");
-    $(".toast-body")[0].innerText = "飽和度: " + setting.saturate + "%";
-    $(".toast").toast("show");
+    showToast("飽和度: " + setting.saturate + "%");
 }
 
 function contrast(val) {
@@ -193,8 +197,7 @@ function contrast(val) {
 
     adjFilter();
     $('#contrast').val(setting.contrast + "%");
-    $(".toast-body")[0].innerText = "對比度: " + setting.contrast + "%";
-    $(".toast").toast("show");
+    showToast("對比度: " + setting.contrast + "%");
 }
 
 function adjFilter() {
@@ -211,12 +214,14 @@ function enableABLoop(a, b) {
     setting.loopB = b;
     setting.isABLoop = true;
     player.currentTime = a;
+    showToast("設定Loop" + setting.loopA + "~" + setting.loopB);
 }
 
 function disableABLoop() {
     setting.loopA = -1;
     setting.loopB = -1;
     setting.isABLoop = false;
+    showToast("取消Loop");
 }
 
 function vidTimeUpdated() {
