@@ -38,58 +38,81 @@
         </video>
     </section>
 
-    <!--menu-->
-    <button id="menu" class="fixed-bottom btn btn-secondary d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
+    <!--展開設定面板的按鈕-->
+    <button id="menu" class="fixed-bottom btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
 
-    <div class="offcanvas offcanvas-bottom" data-bs-backdrop="false" id="offcanvasScrolling" style="height:7vh">
+    <!--設定面板-->
+    <div class="offcanvas offcanvas-bottom" data-bs-backdrop="false" id="offcanvasScrolling" style="height:6vh">
         <div class="offcanvas-body row">
+            <!--關閉設定面板的按鈕-->
             <button class="col-1 form-floating btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 
-            <div class="col-2 form-floating">
-                <input class="form-control" id="loopA" value="0" style="height:1vh" />
-                <label for="loopA">A</label>
-                <button type="button" class="btn btn-primary">Left</button>
-            </div>
-            <div class="col-2 form-floating">
-                <input class="form-control" id="loopB" value="0" style="height:1vh" />
-                <label for="loopB">B</label>
+            <div class="col-4 form-floating">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">A</span>
+                    <input id="loopA" class="form-control">
+                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopASub">－</button>
+
+                    <span class="input-group-text">B</span>
+                    <input id="loopB" class="form-control">
+                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopBAdd">＋</button>
+                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopBSub">－</button>
+                    <button class="btn btn-outline-secondary btn-sm" id="btnLoop">AB-Loop</button>
+                </div>
             </div>
 
             <div class="col-1 form-floating">
-                <input class="form-control" id="rotate" value="0" style="height:1vh" />
-                <label for="rotate">度</label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">角度</span>
+                    <input class="form-control" id="rotate" value="0" />
+                </div>
             </div>
+
             <div class="col-1 form-floating">
-                <input class="form-control" id="rotateY" value="False" style="height:1vh" />
-                <label for="rotateY">鏡</label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">鏡像</span>
+                    <input class="form-control" id="rotateY" value="False" />
+                </div>
             </div>
+
             <div class="col-1 form-floating">
-                <input class="form-control" id="speed" value="100%" style="height:1vh" />
-                <label for="speed">速</label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">速度</span>
+                    <input class="form-control" id="speed" value="100%" />
+                </div>
             </div>
+
             <div class="col-1 form-floating">
-                <input class="form-control" id="bright" value="100%" style="height:1vh" />
-                <label for="speed">亮度</label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">亮度</span>
+                    <input class="form-control" id="bright" value="100%" />
+                </div>
+
             </div>
+
             <div class="col-1 form-floating">
-                <input class="form-control" id="saturation" value="100%" style="height:1vh" />
-                <label for="speed">飽和</label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">飽和度</span>
+                    <input class="form-control" id="saturation" value="100%" />
+                </div>
             </div>
+
             <div class="col-1 form-floating">
-                <input class="form-control" id="contrast" value="100%" style="height:1vh" />
-                <label for="speed">對比</label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">對比度</span>
+                    <input class="form-control" id="contrast" value="100%" />
+                </div>
             </div>
         </div>
     </div>
 
     <!--提醒視窗-->
-    <div class="modal fade" id="exampleModalCenter" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="modal">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-
+                <div id="modal_header" class="modal-header">
                 </div>
-                <div id="memo" class="modal-body">
+                <div id="modal_body" class="modal-body">
                 </div>
             </div>
         </div>
@@ -104,6 +127,35 @@
             //提示視窗的初始設定
             $('.toast').toast({ delay: 1000 });
         }
+
+        $('#btnLoopASub').click(() => {
+            player.pause();
+            var aVal = $('#loopA');
+            if (aVal.val() == "") {
+                aVal.val($('#loopB').val());
+            } else {
+                aVal.val(parseInt(aVal.val()) - 1);
+            }
+        });
+
+        $('#btnLoopBSub').click(() => {
+            player.pause();
+            var bVal = $('#loopB');
+            bVal.val(parseInt(bVal.val()) - 1);
+        });
+
+        $('#btnLoopBAdd').click(() => {
+            player.pause();
+            var bVal = $('#loopB');
+            bVal.val(parseInt(bVal.val()) + 1);
+        });
+
+        $('#btnLoop').click(() => {
+            var aVal = $('#loopA');
+            var bVal = $('#loopB');
+            setLoop(aVal, bVal);
+        });
+
 
         function onDrop(evt) {
             evt.preventDefault();
@@ -129,7 +181,6 @@
         function LoadJson(json) {
             var vidObj = JSON.parse(json);
 
-            //設定
             //視窗標題設為檔名
             document.title = vidObj.file.substring(vidObj.file.lastIndexOf('\\') + 1, vidObj.file.indexOf('.'));
 
@@ -142,21 +193,19 @@
             //*要先建立章節清單才能導入相關的按鈕事件JS
             $.getScript("https://jtj777.github.io/VidPlayer/js/vidcha.js");
 
-            //隱藏檔案拖曳區塊
+            //顯示播放器
             $("#player").removeClass("d-none");
+
+            //隱藏檔案拖曳區塊
             $("#holder").addClass("d-none");
 
+            //顯示設定面板
             $("#menu").removeClass("d-none");
 
-
-            //提醒視窗
-            if (vidObj.Memo != undefined) {
-                $("#memo")[0].innerText = vidObj.Memo;
-                $('#exampleModalCenter').modal('show');
-            }
+            //跳出提醒視窗
             if (vidObj.memo != undefined) {
-                $("#memo")[0].innerText = vidObj.memo;
-                $('#exampleModalCenter').modal('show');
+                $("#modal_body")[0].innerText = vidObj.memo;
+                $('#modal').modal('show');
             }
         }
     </script>

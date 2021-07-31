@@ -137,8 +137,9 @@ function rotate(deg) {
     rotatedeg += deg;
     player.style.transform = "rotate(" + rotatedeg + "deg) rotateY(" + rotateYdeg + "deg)";
 
+    var m = (rotateYdeg % 360 == 0) ? "False" : "True";
     $('#rotate').val(rotatedeg);
-    $('#rotateY').val(rotateYdeg);
+    $('#rotateY').val(m);
     $(".toast-body")[0].innerText = "翻轉角度: " + rotatedeg;
     $(".toast").toast("show");
 }
@@ -193,19 +194,21 @@ window.onresize = function (event) {
     this.setFitSize();
 };
 
+var loopA = -1;
+var loopB = -1;
+function setLoop(a, b) {
+    loopA = a;
+    loopB = b;
+}
+
 //
 function vidTimeUpdated() {
     //修改標題
     var title = document.title.split(' : ')[0];
     document.title = title + " : " + Math.floor(player.currentTime);
 
-    var la = parseInt(document.getElementById("loopA").value);
-    //if (la < 1)
-    document.getElementById("loopB").value = Math.floor(player.currentTime);
-    var lb = parseInt(document.getElementById("loopB").value);
-
     //迴圈播放
-    if (la >= 0 && lb > la) {
+    if (loopA >= 0 && loopB > la) {
         if (player.currentTime > lb) {
             player.currentTime = la;
         }
