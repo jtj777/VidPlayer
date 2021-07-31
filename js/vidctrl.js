@@ -133,12 +133,12 @@ function prePos() {
 
 function fastward(sec) {
     player.currentTime += sec;
-    showToast("+" + sec);
+    showToast("+" + sec + "秒");
 }
 
 function reverse(sec) {
     player.currentTime -= sec;
-    showToast("-" + sec);
+    showToast("-" + sec + "秒");
 }
 
 function moveTop() {
