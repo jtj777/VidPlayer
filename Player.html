@@ -131,34 +131,36 @@
 
         $('#btnLoopASub').click(() => {
             player.pause();
-            var aVal = $('#loopA');
-            if (aVal.val() == "") {
-                aVal.val($('#loopB').val());
+            var aVal = $('#loopA').val();
+            if (aVal == "") {
+                $('#loopA').val($('#loopB').val());
             } else {
-                aVal.val(parseInt(aVal.val()) - 1);
+                $('#loopA').val(parseInt(aVal) - 1);
             }
         });
 
         $('#btnLoopBSub').click(() => {
             player.pause();
-            var bVal = $('#loopB');
-            bVal.val(parseInt(bVal.val()) - 1);
+            var bVal = $('#loopB').val();
+            $('#loopB').val(parseInt(bVal.val()) - 1);
         });
 
         $('#btnLoopBAdd').click(() => {
             player.pause();
-            var bVal = $('#loopB');
-            bVal.val(parseInt(bVal.val()) + 1);
+            var bVal = $('#loopB').val();
+            $('#loopB').val(parseInt(bVal) + 1);
         });
 
         $('#btnLoopOn').click(() => {
-            var aVal = $('#loopA');
-            var bVal = $('#loopB');
+            var aVal = $('#loopA').val();
+            var bVal = $('#loopB').val();
             enableLoop(aVal, bVal);
+            player.play();
         });
 
         $('#btnLoopOff').click(() => {
-            disableLoop(aVal, bVal);
+            disableLoop();
+            player.play();
         });
 
         function onDrop(evt) {
