@@ -208,7 +208,7 @@ window.onresize = function () {
 
 function enableABLoop(a, b) {
     setting.loopA = a;
-    setting.loopA = b;
+    setting.loopB = b;
     setting.isABLoop = true;
     player.currentTime = a;
 }
