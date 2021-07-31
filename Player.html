@@ -57,7 +57,8 @@
                     <input id="loopB" class="form-control">
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopBAdd">＋</button>
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopBSub">－</button>
-                    <button class="btn btn-outline-secondary btn-sm" id="btnLoop">AB-Loop</button>
+                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopOn">Loop-On</button>
+                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopOff">Loop-Off</button>
                 </div>
             </div>
 
@@ -150,12 +151,15 @@
             bVal.val(parseInt(bVal.val()) + 1);
         });
 
-        $('#btnLoop').click(() => {
+        $('#btnLoopOn').click(() => {
             var aVal = $('#loopA');
             var bVal = $('#loopB');
-            setLoop(aVal, bVal);
+            enableLoop(aVal, bVal);
         });
 
+        $('#btnLoopOff').click(() => {
+            disableLoop(aVal, bVal);
+        });
 
         function onDrop(evt) {
             evt.preventDefault();

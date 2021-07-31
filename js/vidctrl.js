@@ -196,9 +196,17 @@ window.onresize = function (event) {
 
 var loopA = -1;
 var loopB = -1;
-function setLoop(a, b) {
+var isLoopEnable = false;
+function enableLoop(a, b) {
     loopA = a;
     loopB = b;
+    isLoopEnable = true;
+}
+
+function disableLoop() {
+    loopA = -1;
+    loopB = -1;
+    isLoopEnable = false;
 }
 
 //
@@ -207,10 +215,12 @@ function vidTimeUpdated() {
     var title = document.title.split(' : ')[0];
     document.title = title + " : " + Math.floor(player.currentTime);
 
-    $('#loopB').val(player.currentTime);
+    if (!isLoopEnable) {
+        $('#loopB').val(Math.floor(player.currentTime));
+    }
 
     //迴圈播放
-    if (loopA >= 0 && loopB > la) {
+    if (isLoopEnable && loopA >= 0 && loopB > la) {
         if (player.currentTime > lb) {
             player.currentTime = la;
         }
