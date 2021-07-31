@@ -220,7 +220,7 @@ function vidTimeUpdated() {
     }
 
     //迴圈播放
-    if (isLoopEnable && loopA >= 0 && loopB > la) {
+    if (isLoopEnable && loopA >= 0 && loopB > loopA) {
         if (player.currentTime > lb) {
             player.currentTime = la;
         }
