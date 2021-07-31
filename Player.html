@@ -197,14 +197,11 @@
             //視窗標題設為檔名
             document.title = vidObj.file.substring(vidObj.file.lastIndexOf('\\') + 1, vidObj.file.indexOf('.'));
 
-            //初始化章節清單
-            initPlayer(
-                vidObj.file,
-                vidObj.pos
-            );
-
-            //*要先建立章節清單才能導入相關的按鈕事件JS
-            $.getScript("https://jtj777.github.io/VidPlayer/js/vidcha.js");
+            if (vidObj.isloop) {
+                EnableLoopMode(vidObj);
+            } else {
+                EnableNormalMode(vidObj);
+            }
 
             //顯示播放器
             $("#player").removeClass("d-none");
@@ -220,6 +217,33 @@
                 $("#modal_body")[0].innerText = vidObj.memo;
                 $('#modal').modal('show');
             }
+        }
+
+        function EnableNormalMode(vidObj) {
+            //初始化章節清單
+            initPlayer(
+                vidObj.file,
+                vidObj.pos
+            );
+
+            //*要先建立章節清單才能導入相關的按鈕事件JS
+            $.getScript("https://jtj777.github.io/VidPlayer/js/vidcha.js");
+        }
+
+        function EnableLoopMode(vidObj) {
+            player.src = vidObj.file;
+            Speed(vidObj.loop.speed);
+            b = vidObj.loop.brightness;
+            s = vidObj.loop.saturation;
+            c = vidObj.loop.contrast;
+            adjFilter()
+
+            rotate(vidObj.loop.r);
+            rotateY(vidObj.loop.ry ? 180 : 0);
+
+            enableLoop(vidObj.loop.a, vidObj.loop.b);
+
+            setFitSize();
         }
     </script>
 </body>
