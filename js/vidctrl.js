@@ -201,6 +201,7 @@ function enableLoop(a, b) {
     loopA = a;
     loopB = b;
     isLoopEnable = true;
+    player.currentTime = a;
 }
 
 function disableLoop() {

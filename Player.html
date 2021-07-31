@@ -39,10 +39,10 @@
     </section>
 
     <!--展開設定面板的按鈕-->
-    <button id="menu" class="fixed-bottom btn btn-secondary d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
+    <button id="menu" class="fixed-bottom btn btn-secondary btn-sm d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
 
     <!--設定面板-->
-    <div class="offcanvas offcanvas-bottom" data-bs-backdrop="false" id="offcanvasScrolling" style="height:6vh">
+    <div class="offcanvas offcanvas-bottom" data-bs-backdrop="false" id="offcanvasScrolling" style="height:7vh">
         <div class="offcanvas-body row">
             <!--關閉設定面板的按鈕-->
             <button class="col-1 form-floating btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -152,6 +152,12 @@
         });
 
         $('#btnLoopOn').click(() => {
+            if ($('#loopA').val() == "") {
+                $("#modal_body")[0].innerText = "A或B未設值無法成形成迴圈";
+                $('#modal').modal('show');
+                return;
+            }
+
             var aVal = $('#loopA').val();
             var bVal = $('#loopB').val();
             enableLoop(aVal, bVal);
@@ -159,6 +165,7 @@
         });
 
         $('#btnLoopOff').click(() => {
+            $('#loopA').val("");
             disableLoop();
             player.play();
         });
