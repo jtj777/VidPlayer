@@ -225,7 +225,7 @@ function vidTimeUpdated() {
     document.title = title + " : " + Math.floor(player.currentTime);
 
     //迴圈播放
-    if (isLoopEnable && setting.loopA >= 0 && setting.loopB > setting.loopA) {
+    if (setting.isABLoop && setting.loopA >= 0 && setting.loopB > setting.loopA) {
         if (player.currentTime > setting.loopB) {
             player.currentTime = setting.loopA;
         }
