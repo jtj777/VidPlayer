@@ -47,16 +47,22 @@
             <!--關閉設定面板的按鈕-->
             <button class="col-1 form-floating btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 
-            <div class="col-4 form-floating">
+            <div class="col-3 form-floating">
                 <div class="input-group input-group-sm">
-                    <span class="input-group-text">A</span>
+                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopA">A</button>
                     <input id="loopA" class="form-control">
+                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopAAdd">＋</button>
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopASub">－</button>
 
-                    <span class="input-group-text">B</span>
+                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopB">B</button>
                     <input id="loopB" class="form-control">
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopBAdd">＋</button>
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopBSub">－</button>
+                </div>
+            </div>
+
+            <div class="col-2 form-floating">
+                <div class="input-group input-group-sm">
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopOn">Loop-On</button>
                     <button class="btn btn-outline-secondary btn-sm" id="btnLoopOff">Loop-Off</button>
                 </div>
@@ -129,6 +135,14 @@
             $('.toast').toast({ delay: 1000 });
         }
 
+        $('$btnLoopA').click(() => {
+            $('#loopA').val(parent(player.currentTime));
+        });
+
+        $('$btnLoopB').click(() => {
+            $('#loopB').val(parent(player.currentTime));
+        });
+
         $('#btnLoopASub').click(() => {
             player.pause();
             var aVal = $('#loopA').val();
@@ -160,13 +174,13 @@
 
             var aVal = $('#loopA').val();
             var bVal = $('#loopB').val();
-            enableLoop(aVal, bVal);
+            enableABLoop(aVal, bVal);
             player.play();
         });
 
         $('#btnLoopOff').click(() => {
             $('#loopA').val("");
-            disableLoop();
+            disableABLoop();
             player.play();
         });
 
@@ -243,7 +257,7 @@
                 flip();
             }
 
-            enableLoop(vidObj.loop.a, vidObj.loop.b);
+            enableABLoop(vidObj.loop.a, vidObj.loop.b);
 
             setFitSize();
         }

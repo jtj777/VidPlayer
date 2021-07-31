@@ -1,33 +1,34 @@
+var player = document.getElementById("player");
 var setting = {
+    //播放器上下位置
     topPx: 0,
+    //播放器角度
     rotatedeg: 0,
+    //播放器水平翻轉
     rotateYdeg: 0,
+    //章節跳轉
     posIndex: -1,
     posList: [],
+    //播放速度
     speed: 1,
+    //亮度
     brightness: 100,
+    //飽和度
     saturate: 100,
+    //對比度
     contrast: 100,
-    isLoop: false,
+    //是否迴圈播放
+    isABLoop: false,
+    //迴圈起點
     loopA: -1,
+    //迴圈終點
     loopB: -1
 }
-////播放器上下位置
-//var topPx = 0;
-////撥放器角度
-//var rotatedeg = 0;
-////播放器水平翻轉
-//var rotateYdeg = 0;
 
-//var posIndex = -1;
-//var posList = [];
+//快捷鍵事件監聽
+document.addEventListener('keypress', hotKey);
 
-var player = document.getElementById("player");
-
-//快捷鍵
-document.addEventListener('keypress', logKey);
-
-function logKey(e) {
+function hotKey(e) {
 
     switch (e.code) {
         case 'Digit7':
@@ -103,10 +104,7 @@ function logKey(e) {
 }
 
 function speed(rate) {
-    if (player.playbackRate == rate)
-        player.playbackRate = 1;
-    else
-        player.playbackRate = rate;
+    player.playbackRate = (player.playbackRate == rate ? 1 : rate);
 
     setting.speed = player.playbackRate;
     $('#speed').val(player.playbackRate * 100 + "%");
@@ -172,9 +170,6 @@ function flip() {
     $(".toast").toast("show");
 }
 
-//var b = 100;
-//var s = 100;
-//var c = 100;
 function brightness(val) {
     setting.brightness += val;
 
@@ -211,30 +206,23 @@ window.onresize = function () {
     this.setFitSize();
 };
 
-//var loopA = -1;
-//var loopB = -1;
-//var isLoopEnable = false;
-function enableLoop(a, b) {
+function enableABLoop(a, b) {
     setting.loopA = a;
     setting.loopA = b;
-    setting.isLoop = true;
+    setting.isABLoop = true;
     player.currentTime = a;
 }
 
-function disableLoop() {
+function disableABLoop() {
     setting.loopA = -1;
     setting.loopB = -1;
-    setting.isLoop = false;
+    setting.isABLoop = false;
 }
 
 function vidTimeUpdated() {
     //修改標題
     var title = document.title.split(' : ')[0];
     document.title = title + " : " + Math.floor(player.currentTime);
-
-    if (!isLoopEnable) {
-        $('#loopB').val(Math.floor(player.currentTime));
-    }
 
     //迴圈播放
     if (isLoopEnable && setting.loopA >= 0 && setting.loopB > setting.loopA) {
