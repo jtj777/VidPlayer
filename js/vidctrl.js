@@ -54,10 +54,6 @@ function logKey(e) {
                 Reverse(10);
             return;
 
-        case 'KeyA':
-            showABLoop();
-            break;
-
         //case 'Numpad8':
         //    MoveTop();
         //    return;
@@ -96,7 +92,7 @@ function Speed(rate) {
     else
         player.playbackRate = rate;
 
-    $('#speed').val(player.playbackRate*100 +"%");
+    $('#speed').val(player.playbackRate * 100 + "%");
     $(".toast-body")[0].innerText = "播放速度: " + player.playbackRate;
     $(".toast").toast("show");
 }
@@ -192,10 +188,53 @@ function adjFilter() {
     $("video").css("filter", "brightness(" + b + "%) saturate(" + s + "%) contrast(" + c + "%)");
 }
 
-function showABLoop() {
-    if ($('#abloop').hasClass('d-none')) {
-        $('#abloop').removeClass('d-none');
-    } else {
-        $('#abloop').addClass('d-none');
+//視窗縮放
+window.onresize = function (event) {
+    this.setFitSize();
+};
+
+//
+function vidTimeUpdated() {
+    //修改標題
+    var title = document.title.split(' : ')[0];
+    document.title = title + " : " + Math.floor(player.currentTime);
+
+    var la = parseInt(document.getElementById("loopA").value);
+    //if (la < 1)
+    document.getElementById("loopB").value = Math.floor(player.currentTime);
+    var lb = parseInt(document.getElementById("loopB").value);
+
+    //迴圈播放
+    if (la >= 0 && lb > la) {
+        if (player.currentTime > lb) {
+            player.currentTime = la;
+        }
     }
+}
+
+function setFitSize() {
+    player.style.position = "absolute";
+    player.style.top = "60px";
+    var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    var vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+    player.width = vw;
+    player.height = vh - 100;
+}
+
+function initPlayer(vidSrc, pos) {
+    player.src = vidSrc;
+
+    var content = "";
+    for (var i = 0; i < pos.length; i++) {
+        var c = pos[i].split(':');
+        var p1 = c[0];
+        var p2 = c[1];
+        content += "<li class='shadow' data-start='" + p2 + "'>" + p1 + "</li>";
+        posList.push(p2);
+    }
+    var VidPos = document.getElementById("vidchas");
+    VidPos.innerHTML = content;
+
+    setFitSize();
 }

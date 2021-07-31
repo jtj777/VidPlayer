@@ -8,7 +8,7 @@
     <script src="https://jtj777.github.io/VidPlayer/js/jquery-3.3.1.min.js"></script>
 </head>
 
-<body style="background-color:black">
+<body style="background-color:#111">
     <!--檔案讀取-->
     <div id="holder" style="height:100%; background-color: #def; position: relative; padding: 100px 20px; outline: 2px dashed #92b0b3; outline-offset: -10px; -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear; transition: outline-offset .15s ease-in-out, background-color .15s linear;">
         <div class="text-center">
@@ -33,22 +33,22 @@
     </section>
 
     <!-- html5 video -->
-    <section class="video rounded">
+    <section class="video">
         <video id="player" class="d-none vidchaVideo" controls ontimeupdate="vidTimeUpdated()">
         </video>
     </section>
 
-
     <!--menu-->
-    <button id="menu" class="fixed-bottom btn btn-info d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
+    <button id="menu" class="fixed-bottom btn btn-secondary d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
 
-    <div class="offcanvas offcanvas-bottom" data-bs-backdrop="false" id="offcanvasScrolling" style="height:6vh">
+    <div class="offcanvas offcanvas-bottom" data-bs-backdrop="false" id="offcanvasScrolling" style="height:7vh">
         <div class="offcanvas-body row">
             <button class="col-1 form-floating btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 
             <div class="col-2 form-floating">
                 <input class="form-control" id="loopA" value="0" style="height:1vh" />
                 <label for="loopA">A</label>
+                <button type="button" class="btn btn-primary">Left</button>
             </div>
             <div class="col-2 form-floating">
                 <input class="form-control" id="loopB" value="0" style="height:1vh" />
@@ -82,33 +82,19 @@
         </div>
     </div>
 
-    <!--AB-Loop-->
-    <!--<section id="abloop" class="d-none fixed-bottom">
-        <div class="row">
-            <div class="col-2 form-floating">
-                <input class="form-control" id="loopA" value="0" style="height:3px" />
-                <label for="loopA">A</label>
-            </div>
-            <div class="col-2 form-floating">
-                <input class="form-control" id="loopB" value="0" style="height:3px" />
-                <label for="loopB">B</label>
-            </div>
+    <!--提醒視窗-->
+    <div class="modal fade" id="exampleModalCenter" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
 
-            <div class="col-1 form-floating">
-                <input class="form-control" id="rotate" value="0" style="height:3px" />
-                <label for="rotate">度</label>
-            </div>
-            <div class="col-1 form-floating">
-                <input class="form-control" id="rotateY" value="False" style="height:3px" />
-                <label for="rotateY">鏡</label>
-            </div>
-            <div class="col-1 form-floating">
-                <input class="form-control" id="speed" value="100%" style="height:3px" />
-                <label for="speed">速</label>
+                </div>
+                <div id="memo" class="modal-body">
+                </div>
             </div>
         </div>
-    </section>-->
-    <script src="https://jtj777.github.io/VidPlayer/js/main.js"></script>
+    </div>
+
     <script src="https://jtj777.github.io/VidPlayer/js/vidctrl.js"></script>
     <script>
         window.onload = () => {
@@ -132,8 +118,6 @@
                 });
                 return;
             }
-
-
 
             //讀取JSON檔
             reader.readAsText(file);
@@ -163,6 +147,17 @@
             $("#holder").addClass("d-none");
 
             $("#menu").removeClass("d-none");
+
+
+            //提醒視窗
+            if (vidObj.Memo != undefined) {
+                $("#memo")[0].innerText = vidObj.Memo;
+                $('#exampleModalCenter').modal('show');
+            }
+            if (vidObj.memo != undefined) {
+                $("#memo")[0].innerText = vidObj.memo;
+                $('#exampleModalCenter').modal('show');
+            }
         }
     </script>
 </body>
