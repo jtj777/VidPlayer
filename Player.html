@@ -188,12 +188,9 @@
                     return;
                 }
 
-                var aVal = parseInt($('#loopA').val());
-                var bVal = parseInt($('#loopB').val());
+
                 enableABLoop(aVal, bVal);
             } else {
-                $('#loopA').val("");
-                $('#loopB').val("");
                 disableABLoop();
                 player.play();
             }

@@ -212,16 +212,18 @@ window.onresize = function () {
 };
 
 function enableABLoop(a, b) {
-    setting.loopA = a;
-    setting.loopB = b;
+    //setting.loopA = a;
+    //setting.loopB = b;
+    //var aVal = parseInt($('#loopA').val());
+    //var bVal = parseInt($('#loopB').val());
     setting.isABLoop = true;
-    player.currentTime = a;
+    player.currentTime = parseInt($('#loopA').val());
     showToast("設定Loop");
 }
 
 function disableABLoop() {
-    setting.loopA = -1;
-    setting.loopB = -1;
+    //setting.loopA = -1;
+    //setting.loopB = -1;
     setting.isABLoop = false;
     showToast("取消Loop");
 }
@@ -232,9 +234,11 @@ function vidTimeUpdated() {
     document.title = title + " : " + Math.floor(player.currentTime);
 
     //迴圈播放
-    if (setting.isABLoop && setting.loopA >= 0 && setting.loopB > setting.loopA) {
-        if (player.currentTime > setting.loopB) {
-            player.currentTime = setting.loopA;
+    var la = parseInt($('#loopA').val());
+    var lb = parseInt($('#loopB').val());
+    if (setting.isABLoop && la >= 0 && lb > la) {
+        if (player.currentTime > lb) {
+            player.currentTime = la;
         }
     }
 
