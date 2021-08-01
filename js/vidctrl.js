@@ -248,7 +248,8 @@ function setFitSize() {
 }
 
 function initPlayer(vidSrc, pos) {
-    player.src = vidSrc;
+    $('#player').src = vidSrc;
+    //player.src = 
 
     var content = "";
     for (var i = 0; i < pos.length; i++) {

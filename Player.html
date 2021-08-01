@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://jtj777.github.io/VidPlayer/css/bootstrap5.min.css">
     <script src="https://jtj777.github.io/VidPlayer/js/bootstrap5.bundle.min.js"></script>
     <script src="https://jtj777.github.io/VidPlayer/js/jquery-3.3.1.min.js"></script>
+    <script src="https://jtj777.github.io/VidPlayer/js/vidctrl.js"></script>
 </head>
 
 <body style="background-color:#111">
@@ -39,7 +40,14 @@
     </section>
 
     <!--展開設定面板的按鈕-->
-    <button id="menu" class="fixed-bottom btn btn-secondary btn-sm d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">Setting</button>
+    <button id="menu" class="fixed-bottom btn btn-sm d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">
+        <svg data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
+            <g>
+                <path d="M0,0h24v24H0V0z" fill="none" />
+                <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
+            </g>
+        </svg>
+    </button>
 
     <!--設定面板-->
     <div class="offcanvas offcanvas-bottom" data-bs-backdrop="false" id="offcanvasScrolling" style="height:7vh">
@@ -63,34 +71,36 @@
 
             <div class="col-2 form-floating">
                 <div class="input-group input-group-sm">
-                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopOn">Loop-On</button>
-                    <button class="btn btn-outline-secondary btn-sm" id="btnLoopOff">Loop-Off</button>
+                    <span class="input-group-text shadow">Loop</span>
+                    <div class="input-group-text shadow">
+                        <input type="checkbox" class="btn btn-secondary btn-sm shadow" id="btnLoopOn" />
+                    </div>
                 </div>
             </div>
 
             <div class="col-1 form-floating">
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm shadow">
                     <span class="input-group-text">角度</span>
                     <input class="form-control" id="rotate" value="0" />
                 </div>
             </div>
 
             <div class="col-1 form-floating">
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm shadow">
                     <span class="input-group-text">鏡像</span>
                     <input class="form-control" id="rotateY" value="False" />
                 </div>
             </div>
 
             <div class="col-1 form-floating">
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm shadow">
                     <span class="input-group-text">速度</span>
                     <input class="form-control" id="speed" value="100%" />
                 </div>
             </div>
 
             <div class="col-1 form-floating">
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm shadow">
                     <span class="input-group-text">亮度</span>
                     <input class="form-control" id="bright" value="100%" />
                 </div>
@@ -98,14 +108,14 @@
             </div>
 
             <div class="col-1 form-floating">
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm shadow">
                     <span class="input-group-text">飽和度</span>
                     <input class="form-control" id="saturation" value="100%" />
                 </div>
             </div>
 
             <div class="col-1 form-floating">
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm shadow">
                     <span class="input-group-text">對比度</span>
                     <input class="form-control" id="contrast" value="100%" />
                 </div>
@@ -125,7 +135,7 @@
         </div>
     </div>
 
-    <script src="https://jtj777.github.io/VidPlayer/js/vidctrl.js"></script>
+
     <script>
         $('#btnLoopA').click(() => {
             $('#loopA').val(parseInt(player.currentTime));
@@ -160,23 +170,32 @@
         });
 
         $('#btnLoopOn').click(() => {
-            if ($('#loopA').val() == "") {
-                ShowDialog("錯誤", "A或B未設值無法成形成迴圈");
-                return;
+            var isLoopOn = $('#btnLoopOn').prop('checked');
+            if (isLoopOn) {
+                if ($('#loopA').val() == "") {
+                    ShowDialog("錯誤", "A或B未設值無法成形成迴圈");
+                    $("#btnLoopOn").prop("checked", false);
+                    return;
+                }
+
+                var aVal = parseInt($('#loopA').val());
+                var bVal = parseInt($('#loopB').val());
+                enableABLoop(aVal, bVal);
+            } else {
+                $('#loopA').val("");
+                $('#loopB').val("");
+                disableABLoop();
+                player.play();
             }
 
-            var aVal = parseInt($('#loopA').val());
-            var bVal = parseInt($('#loopB').val());
-            enableABLoop(aVal, bVal);
             player.play();
         });
 
-        $('#btnLoopOff').click(() => {
-            $('#loopA').val("");
-            $('#loopB').val("");
-            disableABLoop();
-            player.play();
+        $(window).resize(() => {
+            showToast("resize");
+            
         });
+
     </script>
     <script>
         window.onload = () => {
