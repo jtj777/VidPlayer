@@ -79,8 +79,8 @@ function hotKey(e) {
 
         case 'KeyS':
             if (window.event.shiftKey)
-                speed(0.75);
-            else speed(1.5);
+                speed(setting.speed - 0.1);
+            else speed(setting.speed + 0.1);
             break;
 
         case 'Digit1':
@@ -109,8 +109,8 @@ function showToast(text) {
 }
 
 function speed(rate) {
-    player.playbackRate = (player.playbackRate == rate ? 1 : rate);
-
+    //player.playbackRate = (player.playbackRate == rate ? 1 : rate);
+    player.playbackRate = rate;
     setting.speed = player.playbackRate;
     $('#speed').val(player.playbackRate * 100 + "%");
 
