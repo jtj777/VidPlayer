@@ -112,9 +112,9 @@ function speed(rate) {
     //player.playbackRate = (player.playbackRate == rate ? 1 : rate);
     player.playbackRate = rate;
     setting.speed = player.playbackRate;
-    $('#speed').val(player.playbackRate * 100 + "%");
-
-    showToast("播放速度: " + player.playbackRate);
+    var s = parseInt(player.playbackRate * 100) + "%";
+    $('#speed').val(s);
+    showToast("播放速度: " + s);
 }
 
 function nextPos() {
