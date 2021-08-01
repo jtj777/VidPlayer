@@ -1,4 +1,4 @@
-var player = document.getElementById("player");
+var player;
 var setting = {
     //播放器上下位置
     topPx: 0,
@@ -206,6 +206,7 @@ function adjFilter() {
 
 //視窗縮放
 window.onresize = function () {
+    player = document.getElementById('player');
     this.setFitSize();
 };
 
@@ -225,6 +226,7 @@ function disableABLoop() {
 }
 
 function vidTimeUpdated() {
+
     //修改標題
     var title = document.title.split(' : ')[0];
     document.title = title + " : " + Math.floor(player.currentTime);
@@ -248,8 +250,8 @@ function setFitSize() {
 }
 
 function initPlayer(vidSrc, pos) {
-    $('#player').src = vidSrc;
-    //player.src = 
+    if (!player) player = document.getElementById('player');
+    player.src = vidSrc;
 
     var content = "";
     for (var i = 0; i < pos.length; i++) {
