@@ -208,7 +208,7 @@ function adjFilter() {
 window.onresize = function () {
     if (!player) player = document.getElementById('player');
     setFitSize();
-    showToast("影片尺寸:" + $('#player').videoWidth() + "x" + $('#player').videoHeight());
+    showToast("影片尺寸:" + player.videoWidth() + "x" + player.videoHeight());
 };
 
 function enableABLoop(a, b) {
