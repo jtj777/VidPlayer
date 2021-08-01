@@ -207,7 +207,8 @@ function adjFilter() {
 //視窗縮放
 window.onresize = function () {
     if (!player) player = document.getElementById('player');
-    this.setFitSize();
+    setFitSize();
+    showToast("影片尺寸:" + $('#player').width() + "x" + $('#player').height());
 };
 
 function enableABLoop(a, b) {
@@ -234,6 +235,25 @@ function vidTimeUpdated() {
     if (setting.isABLoop && setting.loopA >= 0 && setting.loopB > setting.loopA) {
         if (player.currentTime > setting.loopB) {
             player.currentTime = setting.loopA;
+        }
+    }
+
+    //章節跳轉(顯示)
+    for (var i = 1; i <= setting.posList.length; i++) { // iterate through chapters
+        var start = $(".vidchaNav>*:nth-child(" + i + ")").data("start"); // get start time frome data-attr
+        var end;
+
+        // get end time from start-time from next chapter (check if last chapter)
+        if (i + 1 > setting.posList.length) {
+            end = vidDuration;
+        } else {
+            var nextChapter = i + 1;
+            end = $(".vidchaNav>*:nth-child(" + nextChapter + ")").data("start");
+        }
+
+        // set current Chapter active
+        if (vid.currentTime >= start && vid.currentTime < end) {
+            setActive(i);
         }
     }
 }
@@ -263,5 +283,36 @@ function initPlayer(vidSrc, pos) {
     var VidPos = document.getElementById("vidchas");
     VidPos.innerHTML = content;
 
+    bindChapter();
+
     setFitSize();
 }
+
+
+
+var vid = $('.vidchaVideo')[0];
+var vidDuration = vid.duration;
+
+function bindChapter() {
+    // click action
+    $(".vidchaNav > *").click(function () {
+        var clickedChapter = $(this).index() + 1;
+
+        setActive(clickedChapter);
+        skipTime($(this).data("start"));
+    });
+
+}
+
+function setActive(cha) {
+    $(".vidchaNav>*").removeClass("active"); // reset all active classes
+    $(".vidchaNav>*:nth-child(" + cha + ")").addClass("active"); // add class to active chapter
+}
+
+// skip to time in timeline
+function skipTime(time) {
+    //vid.play();
+    vid.pause();
+    vid.currentTime = time;
+    vid.play();
+};
