@@ -22,7 +22,7 @@
     </div>
 
     <!--吐司視窗-->
-    <div class="toast" style="z-index:9999 ;position: absolute; top: 90%; right: 0%;">
+    <div class="toast" style="z-index:9999 ;position: absolute; top: 80%; right: 0%;">
         <div class="toast-body">
 
         </div>
@@ -285,7 +285,11 @@
         }
 
         function EnableLoopMode(vidObj) {
+            if (!player) player = document.getElementById('player');
             player.src = vidObj.file;
+            setting.posList = [];
+            var VidPos = document.getElementById("vidchas");
+            VidPos.innerHTML = "";
             speed(vidObj.loop.speed);
             setting.brightness = vidObj.loop.brightness;
             setting.saturate = vidObj.loop.saturation;
