@@ -187,9 +187,7 @@
                     $("#btnLoopOn").prop("checked", false);
                     return;
                 }
-
-
-                enableABLoop(aVal, bVal);
+                enableABLoop();
             } else {
                 disableABLoop();
                 player.play();
@@ -300,8 +298,9 @@
             if (vidObj.loop.ry) {
                 flip();
             }
-
-            enableABLoop(vidObj.loop.a, vidObj.loop.b);
+            $('#loopA').val(vidObj.loop.a);
+            $('#loopA').val(vidObj.loop.b);
+            enableABLoop();
 
             setFitSize();
         }

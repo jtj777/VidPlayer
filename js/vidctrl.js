@@ -211,7 +211,7 @@ window.onresize = function () {
     showToast("影片尺寸:" + player.width + "x" + player.height);
 };
 
-function enableABLoop(a, b) {
+function enableABLoop() {
     //setting.loopA = a;
     //setting.loopB = b;
     //var aVal = parseInt($('#loopA').val());
