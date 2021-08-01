@@ -206,7 +206,7 @@ function adjFilter() {
 
 //視窗縮放
 window.onresize = function () {
-    player = document.getElementById('player');
+    if (!player) player = document.getElementById('player');
     this.setFitSize();
 };
 
@@ -226,7 +226,6 @@ function disableABLoop() {
 }
 
 function vidTimeUpdated() {
-
     //修改標題
     var title = document.title.split(' : ')[0];
     document.title = title + " : " + Math.floor(player.currentTime);
