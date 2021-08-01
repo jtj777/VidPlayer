@@ -245,14 +245,14 @@ function vidTimeUpdated() {
 
         // get end time from start-time from next chapter (check if last chapter)
         if (i + 1 > setting.posList.length) {
-            end = vidDuration;
+            end = player.duration;
         } else {
             var nextChapter = i + 1;
             end = $(".vidchaNav>*:nth-child(" + nextChapter + ")").data("start");
         }
 
         // set current Chapter active
-        if (vid.currentTime >= start && vid.currentTime < end) {
+        if (player.currentTime >= start && player.currentTime < end) {
             setActive(i);
         }
     }
@@ -288,11 +288,6 @@ function initPlayer(vidSrc, pos) {
     setFitSize();
 }
 
-
-
-var vid = $('.vidchaVideo')[0];
-var vidDuration = vid.duration;
-
 function bindChapter() {
     // click action
     $(".vidchaNav > *").click(function () {
@@ -311,8 +306,7 @@ function setActive(cha) {
 
 // skip to time in timeline
 function skipTime(time) {
-    //vid.play();
-    vid.pause();
-    vid.currentTime = time;
-    vid.play();
+    player.pause();
+    player.currentTime = time;
+    player.play();
 };
