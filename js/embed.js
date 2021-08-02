@@ -91,7 +91,7 @@ function hotKey(e) {
             setRotate(val);
             break;
 
-        case 'KeyF':
+        case 'KeyY':
             setFlip();
             break;
 
