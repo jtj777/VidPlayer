@@ -74,6 +74,7 @@ player.ontimeupdate = () => {
 //快捷鍵事件監聽
 function hotKey(e) {
     switch (e.code) {
+
         case 'KeyS':
             if (window.event.shiftKey) speed -= 0.1;
             else speed += 0.1;
@@ -84,25 +85,24 @@ function hotKey(e) {
             onlyVideo();
             break;
 
-        case 'Period':
-            setRotate(10);
+        case 'KeyR':
+            var val = (window.event.shiftKey) ? -10 : 10;
+            setRotate(val);
             break;
-        case 'Comma':
-            setRotate(-10);
-            break;
-        case 'Slash':
+        
+        case 'KeyF':
             setFlip();
             break;
 
-        case 'Digit1':
+        case 'KeyQ':
             var val = window.event.shiftKey ? -10 : 10;
             setBrightness(val);
             break;
-        case 'Digit2':
+        case 'KeyW':
             var val = window.event.shiftKey ? -10 : 10;
             setSaturate(val);
             break;
-        case 'Digit3':
+        case 'KeyE':
             var val = window.event.shiftKey ? -10 : 10;
             setContrast(val);
             break;
