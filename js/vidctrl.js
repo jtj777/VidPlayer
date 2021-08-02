@@ -26,10 +26,9 @@ var setting = {
 }
 
 //快捷鍵事件監聽
-document.addEventListener('keypress', hotKey);
+window.addEventListener('keypress', hotKey);
 
 function hotKey(e) {
-
     switch (e.code) {
         case 'Digit7':
             prePos();
