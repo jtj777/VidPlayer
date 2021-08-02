@@ -1,3 +1,4 @@
+/*此為嵌入網站用*/
 var la = -1;
 var lb = -1;
 var rotate = 0;
@@ -89,7 +90,7 @@ function hotKey(e) {
             var val = (window.event.shiftKey) ? -10 : 10;
             setRotate(val);
             break;
-        
+
         case 'KeyF':
             setFlip();
             break;
