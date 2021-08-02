@@ -65,7 +65,7 @@ function onlyVideo() {
 
 //pos
 function showPosUrl() {
-    alert(window.location.toString() + "?pos=" + pos.toString());
+    window.open(window.location.toString() + "?pos=" + pos.toString());
 }
 
 function makerPos() {
