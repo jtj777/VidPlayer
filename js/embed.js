@@ -8,6 +8,8 @@ var 亮度 = 100;
 var 飽和度 = 100;
 var 對比度 = 100;
 var isOnlyVid = false;
+var pos = [];
+var pIndx = -1;
 var player = document.getElementsByTagName('video')[0];
 
 function adjSpeed(rate) {
@@ -61,6 +63,19 @@ function onlyVideo() {
     }
 }
 
+//pos
+function getPos() {
+    let urlParams = new URLSearchParams(window.location.search);
+    pos = urlParams.get('pos').split(',');
+}
+
+function skipPos() {
+    pIndx++;
+    if (pIndx >= pos.length) {
+        pIndx = 0;
+    }
+    player.currentTime = pos[pIndx];
+}
 
 player.ontimeupdate = () => {
     var s = Math.round(player.playbackRate * 100) / 100;
@@ -127,9 +142,17 @@ function hotKey(e) {
             var val = window.event.shiftKey ? 60 : 10;
             player.currentTime -= val;
             break;
+
+        case 'KeyP':
+            skipPos();
+            break;
     }
 }
 window.addEventListener('keypress', hotKey);
 
+
+
+//init
+getPos();
 $('.modal').remove();
 
