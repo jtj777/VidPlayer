@@ -77,12 +77,19 @@ function getPos() {
     pos = urlParams.get('pos').split(',');
 }
 
-function skipPos() {
-    pIndx++;
-    if (pIndx >= pos.length) {
-        pIndx = 0;
+function skipPos(val) {
+    if (val) {
+        if (pIndx + 1 < pos.length) {
+            pIndx++;
+            player.currentTime = pos[pIndx];
+        }
     }
-    player.currentTime = pos[pIndx];
+    else {
+        if (pIndx - 1 >= 0) {
+            pIndx--;
+            player.currentTime = pos[pIndx];
+        }
+    }
 }
 
 player.ontimeupdate = () => {
@@ -152,7 +159,7 @@ function hotKey(e) {
             break;
 
         case 'KeyP':
-            skipPos();
+            skipPos(!window.event.shiftKey);
             break;
         case 'KeyM':
             makerPos();
