@@ -165,7 +165,6 @@ function hotKey(e) {
 window.addEventListener('keypress', hotKey);
 
 
-
 //init
 getPos();
 $('.modal').remove();
