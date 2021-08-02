@@ -64,6 +64,14 @@ function onlyVideo() {
 }
 
 //pos
+function showPosUrl() {
+    alert(window.location.toString() + "?pos=" + pos.toString());
+}
+
+function makerPos() {
+    pos[pos.length] = Math.round(player.currentTime);
+}
+
 function getPos() {
     let urlParams = new URLSearchParams(window.location.search);
     pos = urlParams.get('pos').split(',');
@@ -145,6 +153,12 @@ function hotKey(e) {
 
         case 'KeyP':
             skipPos();
+            break;
+        case 'KeyM':
+            makerPos();
+            break;
+        case 'KeyU':
+            showPosUrl();
             break;
     }
 }
