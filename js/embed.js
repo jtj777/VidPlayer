@@ -131,3 +131,5 @@ function hotKey(e) {
 }
 window.addEventListener('keypress', hotKey);
 
+$('.modal').remove();
+
