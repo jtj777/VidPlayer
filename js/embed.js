@@ -86,12 +86,12 @@ function hotKey(e) {
             onlyVideo();
             break;
 
-        case 'KeyF':
         case 'KeyR':
             var val = (window.event.shiftKey) ? -10 : 10;
             setRotate(val);
             break;
 
+        case 'KeyF':
         case 'KeyY':
             setFlip();
             break;
