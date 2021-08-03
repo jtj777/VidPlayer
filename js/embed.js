@@ -86,7 +86,7 @@ function onlyVideo() {
         document.body.style.visibility = "hidden";
         player.style.visibility = "visible";
         var btns = document.getElementsByClassName('data-start');
-        for (var i = 0; i < btn.length; i++) {
+        for (var i = 0; i < btns.length; i++) {
             btns[i].style.visibility = "visible";
         }
         //影片置中
