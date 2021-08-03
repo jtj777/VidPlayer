@@ -37,7 +37,7 @@ function addChapter() {
         var chapter = pos[i].split(":")[0];
         btn.textContent = chapter;
         btn.addEventListener("click", (e) => {
-            player.currentTime = e.target.attributes.time;
+            player.currentTime = e.target.attributes.time.value;
         });
         div.appendChild(btn);
     }
