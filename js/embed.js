@@ -28,7 +28,7 @@ function addChapter() {
     for (var i = 0; i < pos.length; i++) {
         var btn = document.createElement("button");
         btn.setAttribute("class", "data-start");
-        var time = pos[i];
+        var time = pos[i].split(":")[1];
         btn.textContent = time;
         btn.addEventListener("click", (e) => {
             player.currentTime = e.target.textContent;
@@ -103,7 +103,11 @@ function showPosUrl() {
 }
 
 function makerPos() {
-    pos[pos.length] = Math.round(player.currentTime);
+    player.pause();
+    var m = prompt("名稱");
+    if (m != null && m != "") {
+        pos[pos.length] = m + ":" + Math.round(player.currentTime);
+    }
 }
 
 function getPos() {
@@ -115,13 +119,13 @@ function skipPos(val) {
     if (val) {
         if (pIndx + 1 < pos.length) {
             pIndx++;
-            player.currentTime = pos[pIndx];
+            player.currentTime = pos[pIndx].split(':')[1];
         }
     }
     else {
         if (pIndx - 1 >= 0) {
             pIndx--;
-            player.currentTime = pos[pIndx];
+            player.currentTime = pos[pIndx].split(':')[1];
         }
     }
 }
