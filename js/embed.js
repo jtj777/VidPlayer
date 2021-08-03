@@ -12,6 +12,33 @@ var pos = [];
 var pIndx = -1;
 var player = document.getElementsByTagName('video')[0];
 
+//插入章節
+function addChapter() {
+    if (pos.length == 0) return;
+
+    var div = document.createElement("div");
+    div.style.position = "absolute";
+    div.style.top = 0;
+    div.setAttribute("id", "pnlChapter");
+
+    for (var i = 0; i < pos.length; i++) {
+        var btn = document.createElement("button");
+        btn.setAttribute("class", "data-start");
+        var time = pos[i];
+        btn.textContent = time;
+        btn.addEventListener("click", (e) => {
+            player.currentTime = e.target.textContent;
+        });
+        div.appendChild(btn);
+    }
+
+    document.body.appendChild(div);
+}
+
+function skipTime(val) {
+    player.currentTime = val;
+}
+
 function adjSpeed(rate) {
     player.playbackRate = rate;
 }
@@ -94,7 +121,7 @@ function skipPos(val) {
 
 player.ontimeupdate = () => {
     var s = Math.round(player.playbackRate * 100) / 100;
-    document.title = "亮:" + 亮度 + "飽:" + 飽和度 + "對:" + 對比度 + "速:" + s;
+    document.title = "亮:" + (亮度 / 100) + "飽:" + (飽和度 / 100) + "對:" + (對比度 / 100) + "速:" + s;
     if (la >= 0 && lb > la) {
         if (player.currentTime > lb) {
             player.currentTime = la;
@@ -174,5 +201,5 @@ window.addEventListener('keypress', hotKey);
 
 //init
 getPos();
-$('.modal').remove();
+addChapter();
 
