@@ -28,10 +28,11 @@ function addChapter() {
     for (var i = 0; i < pos.length; i++) {
         var btn = document.createElement("button");
         btn.setAttribute("class", "data-start");
+        btn.setAttribute("time", pos[i].split(":")[1]);
         var time = pos[i].split(":")[0];
         btn.textContent = time;
         btn.addEventListener("click", (e) => {
-            player.currentTime = e.target.textContent;
+            player.currentTime = e.target.attributes.time;
         });
         div.appendChild(btn);
     }
