@@ -14,7 +14,6 @@ var player = document.getElementsByTagName('video')[0];
 
 if (!player) {
     alert("找不到<Video>");
-    return;
 }
 
 //插入章節
