@@ -1,4 +1,10 @@
 /*此為嵌入網站用*/
+
+//load jQuery
+var scriptDom = document.createElement('script');
+scriptDom.setAttribute('src', '//code.jquery.com/jquery.js');
+document.getElementsByTagName('body')[0].appendChild(scriptDom);
+
 var la = -1;
 var lb = -1;
 var rotate = 0;
@@ -10,7 +16,7 @@ var 對比度 = 100;
 var isOnlyVid = false;
 var pos = [];
 var pIndx = -1;
-var player = document.getElementsByTagName('video')[0];
+var player = $('video');
 
 if (!player) {
     alert("找不到<Video>");
