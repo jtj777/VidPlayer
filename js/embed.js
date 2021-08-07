@@ -2,7 +2,7 @@
 
 //load jQuery
 var scriptDom = document.createElement('script');
-scriptDom.setAttribute('src', '//code.jquery.com/jquery.js');
+scriptDom.setAttribute('src', 'https://jtj777.github.io/VidPlayer/js/jquery-3.3.1.min.js');
 document.getElementsByTagName('body')[0].appendChild(scriptDom);
 
 var la = -1;
