@@ -124,7 +124,9 @@ function makerPos() {
 
 function getPos() {
     let urlParams = new URLSearchParams(window.location.search);
-    pos = urlParams.get('pos').split(',');
+    if (urlParams.get('pos') != null) {
+        pos = urlParams.get('pos').split(',');
+    }
 }
 
 function skipPos(val) {
