@@ -120,6 +120,7 @@ function main() {
         if (m != null && m != "") {
             pos[pos.length] = m + ":" + Math.round(player.currentTime);
         }
+        player.play();
     }
 
     function getPos() {
