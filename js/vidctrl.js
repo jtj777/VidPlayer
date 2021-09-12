@@ -42,15 +42,14 @@ function hotKey(e) {
             nextPos();
             return;
 
-        case 'Comma':
-            rotate(-10);
+        case 'KeyR':
+            if (window.event.shiftKey)
+                rotate(-10);
+            else
+                rotate(10);
             return;
 
-        case 'Period':
-            rotate(10);
-            return;
-
-        case 'Slash':
+        case 'KeyF':
             flip();
             return;
 
@@ -82,19 +81,19 @@ function hotKey(e) {
             else speed(setting.speed + 0.1);
             break;
 
-        case 'Digit1':
+        case 'KeyQ':
             if (window.event.shiftKey)
                 brightness(-10);
             else brightness(10);
             break;
 
-        case 'Digit2':
+        case 'KeyW':
             if (window.event.shiftKey)
                 saturate(-10);
             else saturate(10);
             break;
 
-        case 'Digit3':
+        case 'KeyE':
             if (window.event.shiftKey)
                 contrast(-10);
             else contrast(10);
