@@ -3,8 +3,8 @@ var la = -1;
 var lb = -1;
 var rotate = 0;
 var flip = false;
-var top = 0;
-var left = 0;
+var yTop = 0;
+var yLeft = 0;
 var speed = 1;
 var 亮度 = 100;
 var 飽和度 = 100;
@@ -72,7 +72,7 @@ function main() {
     }
 
     function adjTransform() {
-        player.style.transform = "rotate(" + rotate + "deg) rotateY(" + (flip ? 180 : 0) + "deg) translate(0," + top + ")";
+        player.style.transform = "rotate(" + rotate + "deg) rotateY(" + (flip ? 180 : 0) + "deg) translate(0," + yTop + ")";
     }
 
     function setBrightness(val) {
@@ -158,11 +158,11 @@ function main() {
 
     //移動
     function playerUp() {
-        top -= 10;
+        yTop -= 10;
         adjTransform();
     }
     function playerDown() {
-        top += 10;
+        yTop += 10;
         adjTransform();
     }
 
