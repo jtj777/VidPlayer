@@ -120,7 +120,6 @@ function main() {
         if (m != null && m != "") {
             pos[pos.length] = m + ":" + Math.round(player.currentTime);
         }
-        player.play();
     }
 
     function getPos() {
@@ -154,6 +153,31 @@ function main() {
             }
         }
     }
+
+    //移動
+    player.mousedown(function (e) {
+        //設定移動後的預設位置
+        var endx = 0;
+        var endy = 0;
+        //獲取div的初始位置，要注意的是需要轉整型，因為獲取到值帶px
+        var left = parseInt(player.css("left"));
+        var top = parseInt(player.css("top"));
+        //獲取滑鼠按下時的座標，區別於下面的es.pageX,es.pageY
+        var downx = e.pageX;
+        var downy = e.pageY;   //pageY的y要大寫，必須大寫！！
+        //  滑鼠按下時給div掛事件
+        player.bind("mousemove", function (es) {
+            //es.pageX,es.pageY:獲取滑鼠移動後的座標
+            var endx = es.pageX - downx.left;   //計算div的最終位置
+            var endy = es.pageY - downy.top;
+            //帶上單位
+            player.css("left", endx).css("top", endy);
+        });
+    })
+    player.mouseup(function () {
+        //滑鼠彈起時給div取消事件
+        player.unbind("mousemove")
+    })
 
     //快捷鍵事件監聽
     function hotKey(e) {
