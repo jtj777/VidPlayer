@@ -1,6 +1,6 @@
 /*此為嵌入網站用*/
 
-//遮蔽撥放器以外
+//遮蔽播放器以外
 var isOnlyVid = false;
 function onlyVideo() {
     isOnlyVid = (isOnlyVid ? false : true);
@@ -199,7 +199,7 @@ class Time {
     }
 
     clearLoop() {
-        la = lb = -1;
+        this.la = this.lb = -1;
     }
 
     adjSpeed(rate) {
