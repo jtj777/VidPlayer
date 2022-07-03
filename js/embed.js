@@ -49,7 +49,7 @@ class Transform {
 
     //水平翻轉
     setFlip() {
-        this.flip = (flip ? false : true);
+        this.flip = (this.flip ? false : true);
         this.adjTransform();
     }
 
