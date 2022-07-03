@@ -3,6 +3,8 @@ var la = -1;
 var lb = -1;
 var rotate = 0;
 var flip = false;
+var top = 0;
+var left = 0;
 var speed = 1;
 var 亮度 = 100;
 var 飽和度 = 100;
@@ -70,7 +72,7 @@ function main() {
     }
 
     function adjTransform() {
-        player.style.transform = "rotate(" + rotate + "deg) rotateY(" + (flip ? 180 : 0) + "deg)";
+        player.style.transform = "rotate(" + rotate + "deg) rotateY(" + (flip ? 180 : 0) + "deg) translate(0," + top + ")";
     }
 
     function setBrightness(val) {
@@ -156,10 +158,12 @@ function main() {
 
     //移動
     function playerUp() {
-        player.css("top", player.position.top+=10);
+        top -= 10;
+        adjTransform();
     }
     function playerDown() {
-        player.css("top", player.position.top -= 10);
+        top += 10;
+        adjTransform();
     }
 
     //快捷鍵事件監聽
@@ -238,7 +242,7 @@ function main() {
         }
     }
     window.addEventListener('keypress', hotKey);
-    
+
 
     //init
     getPos();
