@@ -72,7 +72,7 @@ function main() {
     }
 
     function adjTransform() {
-        player.style.transform = "rotate(" + rotate + "deg) rotateY(" + (flip ? 180 : 0) + "deg) translate(0," + yTop + ")";
+        player.style.transform = "rotate(" + rotate + "deg) rotateY(" + (flip ? 180 : 0) + "deg) translate(0," + yTop + "px)";
     }
 
     function setBrightness(val) {
