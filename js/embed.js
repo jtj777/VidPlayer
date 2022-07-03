@@ -116,15 +116,6 @@ class Time {
 
         this.getPos();
         this.addChapter();
-
-        //looper
-        this.player.ontimeupdate = () => {
-            if (this.la >= 0 && this.lb > this.la) {
-                if (this.player.currentTime > this.lb) {
-                    this.player.currentTime = this.la;
-                }
-            }
-        }
     }
 
     //pos
@@ -191,6 +182,14 @@ class Time {
         document.body.appendChild(div);
     }
 
+    loopIfExist() {
+        if (this.la >= 0 && this.lb > this.la) {
+            if (this.player.currentTime > this.lb) {
+                this.player.currentTime = this.la;
+            }
+        }
+    }
+
     loopA() {
         this.la = this.player.currentTime;
     }
@@ -221,6 +220,8 @@ function main() {
         //顯示設定值
         var s = Math.round(player.playbackRate * 100) / 100;
         document.title = "亮:" + (filter.亮度 / 100) + "飽:" + (filter.飽和度 / 100) + "對:" + (filter.對比度 / 100) + "速:" + s;
+
+        time.loopIfExist();
     }
 
     //快捷鍵事件監聽
@@ -306,5 +307,3 @@ function main() {
 
     window.addEventListener('keypress', hotKey);
 }
-
-
