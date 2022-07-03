@@ -173,11 +173,11 @@ function main() {
             //帶上單位
             player.css("left", endx).css("top", endy);
         });
-    })
+    }
     player.mouseup = () => {
         //滑鼠彈起時給div取消事件
         player.unbind("onmousemove")
-    })
+    }
 
     //快捷鍵事件監聽
     function hotKey(e) {
