@@ -155,7 +155,7 @@ function main() {
     }
 
     //移動
-    player.mousedown(function (e) {
+    player.onmousedown(function (e) {
         //設定移動後的預設位置
         var endx = 0;
         var endy = 0;
@@ -166,7 +166,7 @@ function main() {
         var downx = e.pageX;
         var downy = e.pageY;   //pageY的y要大寫，必須大寫！！
         //  滑鼠按下時給div掛事件
-        player.bind("mousemove", function (es) {
+        player.bind("onmousemove", function (es) {
             //es.pageX,es.pageY:獲取滑鼠移動後的座標
             var endx = es.pageX - downx.left;   //計算div的最終位置
             var endy = es.pageY - downy.top;
@@ -176,7 +176,7 @@ function main() {
     })
     player.mouseup(function () {
         //滑鼠彈起時給div取消事件
-        player.unbind("mousemove")
+        player.unbind("onmousemove")
     })
 
     //快捷鍵事件監聽
