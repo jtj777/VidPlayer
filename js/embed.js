@@ -155,7 +155,7 @@ function main() {
     }
 
     //移動
-    player.onmousedown(function (e) {
+    player.onmousedown = (e) => {
         //設定移動後的預設位置
         var endx = 0;
         var endy = 0;
@@ -174,7 +174,7 @@ function main() {
             player.css("left", endx).css("top", endy);
         });
     })
-    player.mouseup(function () {
+    player.mouseup = () => {
         //滑鼠彈起時給div取消事件
         player.unbind("onmousemove")
     })
