@@ -1,51 +1,191 @@
 /*此為嵌入網站用*/
-var la = -1;
-var lb = -1;
-var rotate = 0;
-var flip = false;
-var yTop = 0;
-var yLeft = 0;
-var speed = 1;
-var 亮度 = 100;
-var 飽和度 = 100;
-var 對比度 = 100;
-var isOnlyVid = false;
-var pos = [];
-var pIndx = -1;
-var player = document.getElementsByTagName('video')[0];
 
-var findVideo = setInterval(function () {
-    player = document.getElementsByTagName('video')[0];
+//遮蔽撥放器以外
+var isOnlyVid = false;
+function onlyVideo() {
+    isOnlyVid = (isOnlyVid ? false : true);
+    if (isOnlyVid) {
+        document.body.style.visibility = "hidden";
+        player.style.visibility = "visible";
+        var btns = document.getElementsByClassName('data-start');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].style.visibility = "visible";
+        }
+        //影片置中
+        //player.style.position = "absolute";
+        //player.style.left = "50%";
+        //player.style.transform = "translate(-50%, -50%);";
+    } else {
+        document.body.style.visibility = "visible";
+    }
+}
+
+//find videoPlayer looping
+var player = document.getElementsByTagName('video')[0];
+var findVideo = setInterval(() => {
     if (player) {
         clearInterval(findVideo);
         main();
     }
+    player = document.getElementsByTagName('video')[0];
 }, 500);
 
-function main() {
+class Transform {
+    player;
+    rotate = 0;
+    flip = false;
+    top = 0;
+    left = 0;
 
-    //插入章節
-    function addChapter() {
-        if (pos.length == 0) return;
+    constructor(p) {
+        this.player = p;
+    }
+
+    //角度調整
+    setRotate(val) {
+        this.rotate += val;
+        adjTransform();
+    }
+
+    //水平翻轉
+    setFlip() {
+        this.flip = (flip ? false : true);
+        adjTransform();
+    }
+
+    //上下移動
+    setPositionY(val) {
+        this.top += val;
+        adjTransform();
+    }
+
+    //左右移動
+    setPositionX(val) {
+        this.left += val;
+        adjTransform();
+    }
+
+    adjTransform() {
+        player.style.transform = "rotate(" + rotate + "deg) rotateY(" + (flip ? 180 : 0) + "deg) translate(0," + yTop + "px)";
+    }
+}
+
+class Filter {
+    player;
+    亮度 = 100;
+    飽和度 = 100;
+    對比度 = 100;
+
+    constructor(p) {
+        this.player = p;
+
+
+    }
+
+    setBrightness(val) {
+        this.亮度 += val;
+        adjFilter();
+    }
+
+    setSaturate(val) {
+        this.飽和度 += val;
+        adjFilter();
+    }
+
+    setContrast(val) {
+        this.對比度 += val;
+        adjFilter();
+    }
+
+    adjFilter() {
+        this.player.style.filter = "brightness(" + this.亮度 + "%) saturate(" + this.飽和度 + "%) contrast(" + this.對比度 + "%)";
+    }
+}
+
+class Time {
+    player;
+    //loop
+    la = -1;
+    lb = -1;
+
+    speed = 1;
+
+    pos = [];
+    pIndx = -1;
+
+    constructor(p) {
+        this.player = p;
+
+        this.getPos();
+        this.addChapter();
+
+        //looper
+        this.player.ontimeupdate = () => {
+            if (this.la >= 0 && this.lb > this.la) {
+                if (this.player.currentTime > this.lb) {
+                    this.player.currentTime = this.la;
+                }
+            }
+        }
+    }
+
+    //pos
+    showPosUrl() {
+        window.open(window.location.toString() + "?pos=" + this.pos.toString());
+    }
+
+    makerPos() {
+        this.player.pause();
+        var m = prompt("名稱");
+        if (m != null && m != "") {
+            this.pos[this.pos.length] = m + ":" + Math.round(this.player.currentTime);
+        }
+    }
+
+    getPos() {
+        let urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('pos') != null) {
+            this.pos = urlParams.get('pos').split(',');
+        }
+    }
+
+    skipPos(val) {
+        if (val) {
+            if (this.pIndx + 1 < this.pos.length) {
+                this.pIndx++;
+                this.player.currentTime = this.pos[this.pIndx].split(':')[1];
+            }
+        }
+        else {
+            if (this.pIndx - 1 >= 0) {
+                this.pIndx--;
+                this.player.currentTime = this.pos[this.pIndx].split(':')[1];
+            }
+        }
+    }
+
+    //插入章節按鈕
+    addChapter() {
+        if (this.pos.length == 0) return;
 
         var div = document.createElement("div");
         div.style.position = "absolute";
         div.style.top = 0;
         div.setAttribute("id", "pnlChapter");
 
-        for (var i = 0; i < pos.length; i++) {
+        for (var i = 0; i < this.pos.length; i++) {
             var btn = document.createElement("button");
             btn.setAttribute("class", "data-start");
-            if (pos[i].split(":").length == 2) {
-                btn.setAttribute("time", pos[i].split(":")[1]);
+            if (this.pos[i].split(":").length == 2) {
+                btn.setAttribute("time", this.pos[i].split(":")[1]);
             } else {
-                btn.setAttribute("time", pos[i].split(":")[0]);
+                btn.setAttribute("time", this.pos[i].split(":")[0]);
             }
 
-            var chapter = pos[i].split(":")[0];
+            var chapter = this.pos[i].split(":")[0];
             btn.textContent = chapter;
             btn.addEventListener("click", (e) => {
-                player.currentTime = e.target.attributes.time.value;
+                this.player.currentTime = e.target.attributes.time.value;
             });
             div.appendChild(btn);
         }
@@ -53,117 +193,36 @@ function main() {
         document.body.appendChild(div);
     }
 
-    function skipTime(val) {
-        player.currentTime = val;
+    loopA() {
+        this.la = this.player.currentTime;
     }
 
-    function adjSpeed(rate) {
-        player.playbackRate = rate;
+    loopB() {
+        this.lb = this.player.currentTime;
     }
 
-    function setRotate(val) {
-        rotate += val;
-        adjTransform();
+    clearLoop() {
+        la = lb = -1;
     }
 
-    function setFlip() {
-        flip = (flip ? false : true);
-        adjTransform();
+    adjSpeed(rate) {
+        this.player.playbackRate += rate;
     }
 
-    function adjTransform() {
-        player.style.transform = "rotate(" + rotate + "deg) rotateY(" + (flip ? 180 : 0) + "deg) translate(0," + yTop + "px)";
+    adjTime(val) {
+        this.player.currentTime += val;
     }
+}
 
-    function setBrightness(val) {
-        亮度 += val;
-        adjFilter();
-    }
-
-    function setSaturate(val) {
-        飽和度 += val;
-        adjFilter();
-    }
-
-    function setContrast(val) {
-        對比度 += val;
-        adjFilter();
-    }
-
-    function adjFilter() {
-        player.style.filter = "brightness(" + 亮度 + "%) saturate(" + 飽和度 + "%) contrast(" + 對比度 + "%)";
-    }
-    function onlyVideo() {
-        isOnlyVid = (isOnlyVid ? false : true);
-        if (isOnlyVid) {
-            document.body.style.visibility = "hidden";
-            player.style.visibility = "visible";
-            var btns = document.getElementsByClassName('data-start');
-            for (var i = 0; i < btns.length; i++) {
-                btns[i].style.visibility = "visible";
-            }
-            //影片置中
-            //player.style.position = "absolute";
-            //player.style.left = "50%";
-            //player.style.transform = "translate(-50%, -50%);";
-        } else {
-            document.body.style.visibility = "visible";
-        }
-    }
-
-    //pos
-    function showPosUrl() {
-        window.open(window.location.toString() + "?pos=" + pos.toString());
-    }
-
-    function makerPos() {
-        player.pause();
-        var m = prompt("名稱");
-        if (m != null && m != "") {
-            pos[pos.length] = m + ":" + Math.round(player.currentTime);
-        }
-    }
-
-    function getPos() {
-        let urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('pos') != null) {
-            pos = urlParams.get('pos').split(',');
-        }
-    }
-
-    function skipPos(val) {
-        if (val) {
-            if (pIndx + 1 < pos.length) {
-                pIndx++;
-                player.currentTime = pos[pIndx].split(':')[1];
-            }
-        }
-        else {
-            if (pIndx - 1 >= 0) {
-                pIndx--;
-                player.currentTime = pos[pIndx].split(':')[1];
-            }
-        }
-    }
+function main() {
+    var transform = new Transform(player);
+    var filter = new Filter(player);
+    var time = new Time(player);
 
     player.ontimeupdate = () => {
+        //顯示設定值
         var s = Math.round(player.playbackRate * 100) / 100;
-        document.title = "亮:" + (亮度 / 100) + "飽:" + (飽和度 / 100) + "對:" + (對比度 / 100) + "速:" + s;
-        if (la >= 0 && lb > la) {
-            if (player.currentTime > lb) {
-                player.currentTime = la;
-            }
-        }
-    }
-
-    //移動
-    function playerUp() {
-        yTop -= 10;
-        adjTransform();
-    }
-    function playerDown() {
-        yTop += 10;
-        adjTransform();
+        document.title = "亮:" + (filter.亮度 / 100) + "飽:" + (filter.飽和度 / 100) + "對:" + (filter.對比度 / 100) + "速:" + s;
     }
 
     //快捷鍵事件監聽
@@ -171,9 +230,8 @@ function main() {
         switch (e.code) {
 
             case 'KeyS':
-                if (window.event.shiftKey) speed -= 0.1;
-                else speed += 0.1;
-                adjSpeed(speed);
+                var val = (window.event.shiftKey) ? -0.1 : 0.1;
+                time.adjSpeed(val);
                 break;
 
             case 'KeyO':
@@ -182,71 +240,71 @@ function main() {
 
             case 'KeyR':
                 var val = (window.event.shiftKey) ? -10 : 10;
-                setRotate(val);
+                transform.setRotate(val);
                 break;
 
             case 'KeyF':
             case 'KeyY':
-                setFlip();
+                transform.setFlip();
+                break;
+
+            case 'Comma':
+                var val = window.event.shiftKey ? -10 : 10;
+                transform.setPositionY(val);
+                break;
+
+            case 'Period':
+                var val = window.event.shiftKey ? -10 : 10;
+                transform.setPositionX(val);
                 break;
 
             case 'KeyQ':
                 var val = window.event.shiftKey ? -10 : 10;
-                setBrightness(val);
+                filter.setBrightness(val);
                 break;
             case 'KeyW':
                 var val = window.event.shiftKey ? -10 : 10;
-                setSaturate(val);
+                filter.setSaturate(val);
                 break;
             case 'KeyE':
                 var val = window.event.shiftKey ? -10 : 10;
-                setContrast(val);
+                filter.setContrast(val);
                 break;
 
             case 'KeyA':
-                la = player.currentTime;
+                time.loopA();
                 break;
+
             case 'KeyB':
-                lb = player.currentTime;
+                time.loopB();
                 break;
             case 'KeyC':
-                la = lb = -1;
+                time.clearLoop();
                 break;
 
             case 'KeyL':
                 var val = window.event.shiftKey ? 60 : 10;
-                player.currentTime += val;
+                time.adjTime(val);
                 break;
+
             case 'KeyJ':
-                var val = window.event.shiftKey ? 60 : 10;
-                player.currentTime -= val;
+                var val = window.event.shiftKey ? -60 : -10;
+                time.adjTime(val);
                 break;
 
             case 'KeyP':
-                skipPos(!window.event.shiftKey);
+                time.skipPos(!window.event.shiftKey);
                 break;
+
             case 'KeyM':
-                makerPos();
+                time.makerPos();
                 break;
+
             case 'KeyU':
-                showPosUrl();
+                time.showPosUrl();
                 break;
-
-            case 'Comma':
-                playerUp();
-                break;
-            case 'Period':
-                playerDown();
-                break;
-
         }
     }
+
     window.addEventListener('keypress', hotKey);
-
-
-    //init
-    getPos();
-    addChapter();
 }
-
-
