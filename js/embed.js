@@ -44,29 +44,29 @@ class Transform {
     //角度調整
     setRotate(val) {
         this.rotate += val;
-        adjTransform();
+        this.adjTransform();
     }
 
     //水平翻轉
     setFlip() {
         this.flip = (flip ? false : true);
-        adjTransform();
+        this.adjTransform();
     }
 
     //上下移動
     setPositionY(val) {
         this.top += val;
-        adjTransform();
+        this.adjTransform();
     }
 
     //左右移動
     setPositionX(val) {
         this.left += val;
-        adjTransform();
+        this.adjTransform();
     }
 
     adjTransform() {
-        player.style.transform = "rotate(" + rotate + "deg) rotateY(" + (flip ? 180 : 0) + "deg) translate(0," + yTop + "px)";
+        this.player.style.transform = "rotate(" + this.rotate + "deg) rotateY(" + (this.flip ? 180 : 0) + "deg) translate(" + this.left + "px," + this.top + "px)";
     }
 }
 
@@ -78,23 +78,21 @@ class Filter {
 
     constructor(p) {
         this.player = p;
-
-
     }
 
     setBrightness(val) {
         this.亮度 += val;
-        adjFilter();
+        this.adjFilter();
     }
 
     setSaturate(val) {
         this.飽和度 += val;
-        adjFilter();
+        this.adjFilter();
     }
 
     setContrast(val) {
         this.對比度 += val;
-        adjFilter();
+        this.adjFilter();
     }
 
     adjFilter() {
@@ -308,3 +306,5 @@ function main() {
 
     window.addEventListener('keypress', hotKey);
 }
+
+
