@@ -1,6 +1,6 @@
-/*æ­¤ç‚ºåµŒå…¥ç¶²ç«™ç”¨*/
+/*¦¹¬°´O¤Jºô¯¸¥Î*/
 
-//é®è”½æ’­æ”¾å™¨ä»¥å¤–
+//¾B½ª¼½©ñ¾¹¥H¥~
 var isOnlyVid = false;
 function onlyVideo() {
     isOnlyVid = (isOnlyVid ? false : true);
@@ -11,7 +11,7 @@ function onlyVideo() {
         for (var i = 0; i < btns.length; i++) {
             btns[i].style.visibility = "visible";
         }
-        //å½±ç‰‡ç½®ä¸­
+        //¼v¤ù¸m¤¤
         //player.style.position = "absolute";
         //player.style.left = "50%";
         //player.style.transform = "translate(-50%, -50%);";
@@ -30,77 +30,77 @@ var findVideo = setInterval(() => {
     player = document.getElementsByTagName('video')[0];
 }, 500);
 
-class Transform {
+function Transform() {
     player;
     rotate = 0;
     flip = false;
     top = 0;
     left = 0;
 
-    constructor(p) {
+    function Transform(p) {
         this.player = p;
     }
 
-    //è§’åº¦èª¿æ•´
-    setRotate(val) {
+    //¨¤«×½Õ¾ã
+    function setRotate(val) {
         this.rotate += val;
         this.adjTransform();
     }
 
-    //æ°´å¹³ç¿»è½‰
-    setFlip() {
+    //¤ô¥­Â½Âà
+    function setFlip() {
         this.flip = (this.flip ? false : true);
         this.adjTransform();
     }
 
-    //ä¸Šä¸‹ç§»å‹•
-    setPositionY(val) {
+    //¤W¤U²¾°Ê
+    function setPositionY(val) {
         this.top += val;
         this.adjTransform();
     }
 
-    //å·¦å³ç§»å‹•
-    setPositionX(val) {
+    //¥ª¥k²¾°Ê
+    function setPositionX(val) {
         this.left += val;
         this.adjTransform();
     }
 
-    adjTransform() {
+    function adjTransform() {
         this.player.style.transform = "rotate(" + this.rotate + "deg) rotateY(" + (this.flip ? 180 : 0) + "deg) translate(" + this.left + "px," + this.top + "px)";
     }
 }
 
-class Filter {
+function Filter() {
     player;
-    äº®åº¦ = 100;
-    é£½å’Œåº¦ = 100;
-    å°æ¯”åº¦ = 100;
+    «G«× = 100;
+    ¹¡©M«× = 100;
+    ¹ï¤ñ«× = 100;
 
-    constructor(p) {
+    function Filter(p) {
         this.player = p;
     }
 
-    setBrightness(val) {
-        this.äº®åº¦ += val;
+    function setBrightness(val) {
+        this.«G«× += val;
         this.adjFilter();
     }
 
-    setSaturate(val) {
-        this.é£½å’Œåº¦ += val;
+    function setSaturate(val) {
+        this.¹¡©M«× += val;
         this.adjFilter();
     }
 
-    setContrast(val) {
-        this.å°æ¯”åº¦ += val;
+    function setContrast(val) {
+        this.¹ï¤ñ«× += val;
         this.adjFilter();
     }
 
-    adjFilter() {
-        this.player.style.filter = "brightness(" + this.äº®åº¦ + "%) saturate(" + this.é£½å’Œåº¦ + "%) contrast(" + this.å°æ¯”åº¦ + "%)";
+    function adjFilter() {
+        this.player.style.filter = "brightness(" + this.«G«× + "%) saturate(" + this.¹¡©M«× + "%) contrast(" + this.¹ï¤ñ«× + "%)";
     }
 }
 
-class Time {
+function Time() {
     player;
     //loop
     la = -1;
@@ -111,7 +111,7 @@ class Time {
     pos = [];
     pIndx = -1;
 
-    constructor(p) {
+    function Time(p) {
         this.player = p;
 
         this.getPos();
@@ -119,26 +119,26 @@ class Time {
     }
 
     //pos
-    showPosUrl() {
+    function showPosUrl() {
         window.open(window.location.toString() + "?pos=" + this.pos.toString());
     }
 
-    makerPos() {
+    function makerPos() {
         this.player.pause();
-        var m = prompt("åç¨±");
+        var m = prompt("¦WºÙ");
         if (m != null && m != "") {
             this.pos[this.pos.length] = m + ":" + Math.round(this.player.currentTime);
         }
     }
 
-    getPos() {
+    function getPos() {
         let urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('pos') != null) {
             this.pos = urlParams.get('pos').split(',');
         }
     }
 
-    skipPos(val) {
+    function skipPos(val) {
         if (val) {
             if (this.pIndx + 1 < this.pos.length) {
                 this.pIndx++;
@@ -153,8 +153,8 @@ class Time {
         }
     }
 
-    //æ’å…¥ç« ç¯€æŒ‰éˆ•
-    addChapter() {
+    //´¡¤J³¹¸`«ö¶s
+    function addChapter() {
         if (this.pos.length == 0) return;
 
         var div = document.createElement("div");
@@ -182,7 +182,7 @@ class Time {
         document.body.appendChild(div);
     }
 
-    loopIfExist() {
+    function loopIfExist() {
         if (this.la >= 0 && this.lb > this.la) {
             if (this.player.currentTime > this.lb) {
                 this.player.currentTime = this.la;
@@ -190,23 +190,23 @@ class Time {
         }
     }
 
-    loopA() {
+    function loopA() {
         this.la = this.player.currentTime;
     }
 
-    loopB() {
+    function loopB() {
         this.lb = this.player.currentTime;
     }
 
-    clearLoop() {
+    function clearLoop() {
         this.la = this.lb = -1;
     }
 
-    adjSpeed(rate) {
+    function adjSpeed(rate) {
         this.player.playbackRate += rate;
     }
 
-    adjTime(val) {
+    function adjTime(val) {
         this.player.currentTime += val;
     }
 }
@@ -217,14 +217,14 @@ function main() {
     var time = new Time(player);
 
     player.ontimeupdate = () => {
-        //é¡¯ç¤ºè¨­å®šå€¼
+        //Åã¥Ü³]©w­È
         var s = Math.round(player.playbackRate * 100) / 100;
-        document.title = "äº®:" + (filter.äº®åº¦ / 100) + "é£½:" + (filter.é£½å’Œåº¦ / 100) + "å°:" + (filter.å°æ¯”åº¦ / 100) + "é€Ÿ:" + s;
+        document.title = "«G:" + (filter.«G«× / 100) + "¹¡:" + (filter.¹¡©M«× / 100) + "¹ï:" + (filter.¹ï¤ñ«× / 100) + "³t:" + s;
 
         time.loopIfExist();
     }
 
-    //å¿«æ·éµäº‹ä»¶ç›£è½
+    //§Ö±¶Áä¨Æ¥óºÊÅ¥
     function hotKey(e) {
         switch (e.code) {
 
