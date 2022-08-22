@@ -31,15 +31,10 @@ var findVideo = setInterval(() => {
 }, 500);
 
 function Transform() {
-/*    this.player;*/
     this.rotate = 0;
     this.flip = false;
     this.top = 0;
     this.left = 0;
-
-    //this.Transform = function (p) {
-    //    this.player = p;
-    //}
 
     //角度調整
     this.setRotate = function (val) {
@@ -66,19 +61,14 @@ function Transform() {
     }
 
     this.adjTransform = function () {
-        this.player.style.transform = "rotate(" + this.rotate + "deg) rotateY(" + (this.flip ? 180 : 0) + "deg) translate(" + this.left + "px," + this.top + "px)";
+        player.style.transform = "rotate(" + this.rotate + "deg) rotateY(" + (this.flip ? 180 : 0) + "deg) translate(" + this.left + "px," + this.top + "px)";
     }
 }
 
 function Filter() {
-/*    this.player;*/
     this.bright = 100;
     this.sat = 100;
     this.contrast = 100;
-
-    //this.Filter = function (p) {
-    //    this.player = p;
-    //}
 
     this.setBrightness = function (val) {
         this.bright += val;
@@ -96,12 +86,11 @@ function Filter() {
     }
 
     this.adjFilter = function () {
-        this.player.style.filter = "brightness(" + this.bright + "%) saturate(" + this.sat + "%) contrast(" + this.contrast + "%)";
+        player.style.filter = "brightness(" + this.bright + "%) saturate(" + this.sat + "%) contrast(" + this.contrast + "%)";
     }
 }
 
 function Time() {
-/*    this.player;*/
     //loop
     this.la = -1;
     this.lb = -1;
@@ -111,23 +100,16 @@ function Time() {
     this.pos = [];
     this.pIndx = -1;
 
-//    this.Time = function (p) {
-///*        this.player = p;*/
-
-//        this.getPos();
-//        this.addChapter();
-//    }
-
     //pos
     this.showPosUrl = function () {
         window.open(window.location.toString() + "?pos=" + this.pos.toString());
     }
 
     this.makerPos = function () {
-        this.player.pause();
+        player.pause();
         var m = prompt("名稱");
         if (m != null && m != "") {
-            this.pos[this.pos.length] = m + ":" + Math.round(this.player.currentTime);
+            this.pos[this.pos.length] = m + ":" + Math.round(player.currentTime);
         }
     }
 
@@ -142,13 +124,13 @@ function Time() {
         if (val) {
             if (this.pIndx + 1 < this.pos.length) {
                 this.pIndx++;
-                this.player.currentTime = this.pos[this.pIndx].split(':')[1];
+                player.currentTime = this.pos[this.pIndx].split(':')[1];
             }
         }
         else {
             if (this.pIndx - 1 >= 0) {
                 this.pIndx--;
-                this.player.currentTime = this.pos[this.pIndx].split(':')[1];
+                player.currentTime = this.pos[this.pIndx].split(':')[1];
             }
         }
     }
@@ -174,7 +156,7 @@ function Time() {
             var chapter = this.pos[i].split(":")[0];
             btn.textContent = chapter;
             btn.addEventListener("click", (e) => {
-                this.player.currentTime = e.target.attributes.time.value;
+                player.currentTime = e.target.attributes.time.value;
             });
             div.appendChild(btn);
         }
@@ -184,18 +166,18 @@ function Time() {
 
     this.loopIfExist = function () {
         if (this.la >= 0 && this.lb > this.la) {
-            if (this.player.currentTime > this.lb) {
-                this.player.currentTime = this.la;
+            if (player.currentTime > this.lb) {
+                player.currentTime = this.la;
             }
         }
     }
 
     this.loopA = function () {
-        this.la = this.player.currentTime;
+        this.la = player.currentTime;
     }
 
     this.loopB = function () {
-        this.lb = this.player.currentTime;
+        this.lb = player.currentTime;
     }
 
     this.clearLoop = function () {
@@ -203,11 +185,11 @@ function Time() {
     }
 
     this.adjSpeed = function (rate) {
-        this.player.playbackRate += rate;
+        player.playbackRate += rate;
     }
 
     this.adjTime = function (val) {
-        this.player.currentTime += val;
+        player.currentTime += val;
     }
 }
 
