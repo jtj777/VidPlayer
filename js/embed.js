@@ -31,87 +31,87 @@ var findVideo = setInterval(() => {
 }, 500);
 
 function Transform() {
-    player;
-    rotate = 0;
-    flip = false;
-    top = 0;
-    left = 0;
+    this.player;
+    this.rotate = 0;
+    this.flip = false;
+    this.top = 0;
+    this.left = 0;
 
-    function Transform(p) {
+    this.Transform = function (p) {
         this.player = p;
     }
 
     //角度調整
-    function setRotate(val) {
+    this.setRotate = function (val) {
         this.rotate += val;
         this.adjTransform();
     }
 
     //水平翻轉
-    function setFlip() {
+    this.setFlip = function () {
         this.flip = (this.flip ? false : true);
         this.adjTransform();
     }
 
     //上下移動
-    function setPositionY(val) {
+    this.setPositionY = function (val) {
         this.top += val;
         this.adjTransform();
     }
 
     //左右移動
-    function setPositionX(val) {
+    this.setPositionX = function (val) {
         this.left += val;
         this.adjTransform();
     }
 
-    function adjTransform() {
+    this.adjTransform = function () {
         this.player.style.transform = "rotate(" + this.rotate + "deg) rotateY(" + (this.flip ? 180 : 0) + "deg) translate(" + this.left + "px," + this.top + "px)";
     }
 }
 
 function Filter() {
-    player;
-    bright = 100;
-    sat = 100;
-    contrast = 100;
+    this.player;
+    this.bright = 100;
+    this.sat = 100;
+    this.contrast = 100;
 
-    function Filter(p) {
+    this.Filter = function (p) {
         this.player = p;
     }
 
-    function setBrightness(val) {
+    this.setBrightness = function (val) {
         this.bright += val;
         this.adjFilter();
     }
 
-    function setSaturate(val) {
+    this.setSaturate = function (val) {
         this.sat += val;
         this.adjFilter();
     }
 
-    function setContrast(val) {
+    this.setContrast = function (val) {
         this.contrast += val;
         this.adjFilter();
     }
 
-    function adjFilter() {
+    this.adjFilter = function () {
         this.player.style.filter = "brightness(" + this.bright + "%) saturate(" + this.sat + "%) contrast(" + this.contrast + "%)";
     }
 }
 
 function Time() {
-    player;
+    this.player;
     //loop
-    la = -1;
-    lb = -1;
+    this.la = -1;
+    this.lb = -1;
 
-    speed = 1;
+    this.speed = 1;
 
-    pos = [];
-    pIndx = -1;
+    this.pos = [];
+    this.pIndx = -1;
 
-    function Time(p) {
+    this.Time = function (p) {
         this.player = p;
 
         this.getPos();
@@ -119,11 +119,11 @@ function Time() {
     }
 
     //pos
-    function showPosUrl() {
+    this.showPosUrl = function () {
         window.open(window.location.toString() + "?pos=" + this.pos.toString());
     }
 
-    function makerPos() {
+    this.makerPos = function () {
         this.player.pause();
         var m = prompt("名稱");
         if (m != null && m != "") {
@@ -131,14 +131,14 @@ function Time() {
         }
     }
 
-    function getPos() {
+    this.getPos = function () {
         let urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('pos') != null) {
             this.pos = urlParams.get('pos').split(',');
         }
     }
 
-    function skipPos(val) {
+    this.skipPos = function (val) {
         if (val) {
             if (this.pIndx + 1 < this.pos.length) {
                 this.pIndx++;
@@ -154,7 +154,7 @@ function Time() {
     }
 
     //插入章節按鈕
-    function addChapter() {
+    this.addChapter = function () {
         if (this.pos.length == 0) return;
 
         var div = document.createElement("div");
@@ -182,7 +182,7 @@ function Time() {
         document.body.appendChild(div);
     }
 
-    function loopIfExist() {
+    this.loopIfExist = function () {
         if (this.la >= 0 && this.lb > this.la) {
             if (this.player.currentTime > this.lb) {
                 this.player.currentTime = this.la;
@@ -190,23 +190,23 @@ function Time() {
         }
     }
 
-    function loopA() {
+    this.loopA = function () {
         this.la = this.player.currentTime;
     }
 
-    function loopB() {
+    this.loopB = function () {
         this.lb = this.player.currentTime;
     }
 
-    function clearLoop() {
+    this.clearLoop = function () {
         this.la = this.lb = -1;
     }
 
-    function adjSpeed(rate) {
+    this.adjSpeed = function (rate) {
         this.player.playbackRate += rate;
     }
 
-    function adjTime(val) {
+    this.adjTime = function (val) {
         this.player.currentTime += val;
     }
 }
