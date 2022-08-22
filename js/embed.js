@@ -72,31 +72,31 @@ function Transform() {
 
 function Filter() {
     player;
-    亮度 = 100;
-    飽和度 = 100;
-    對比度 = 100;
+    bright = 100;
+    sat = 100;
+    contrast = 100;
 
     function Filter(p) {
         this.player = p;
     }
 
     function setBrightness(val) {
-        this.亮度 += val;
+        this.bright += val;
         this.adjFilter();
     }
 
     function setSaturate(val) {
-        this.飽和度 += val;
+        this.sat += val;
         this.adjFilter();
     }
 
     function setContrast(val) {
-        this.對比度 += val;
+        this.contrast += val;
         this.adjFilter();
     }
 
     function adjFilter() {
-        this.player.style.filter = "brightness(" + this.亮度 + "%) saturate(" + this.飽和度 + "%) contrast(" + this.對比度 + "%)";
+        this.player.style.filter = "brightness(" + this.bright + "%) saturate(" + this.sat + "%) contrast(" + this.contrast + "%)";
     }
 }
 
@@ -219,7 +219,7 @@ function main() {
     player.ontimeupdate = () => {
         //顯示設定值
         var s = Math.round(player.playbackRate * 100) / 100;
-        document.title = "亮:" + (filter.亮度 / 100) + "飽:" + (filter.飽和度 / 100) + "對:" + (filter.對比度 / 100) + "速:" + s;
+        document.title = "亮:" + (filter.bright / 100) + "飽:" + (filter.sat / 100) + "對:" + (filter.contrast / 100) + "速:" + s;
 
         time.loopIfExist();
     }
