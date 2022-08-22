@@ -31,15 +31,15 @@ var findVideo = setInterval(() => {
 }, 500);
 
 function Transform() {
-    this.player;
+/*    this.player;*/
     this.rotate = 0;
     this.flip = false;
     this.top = 0;
     this.left = 0;
 
-    this.Transform = function (p) {
-        this.player = p;
-    }
+    //this.Transform = function (p) {
+    //    this.player = p;
+    //}
 
     //角度調整
     this.setRotate = function (val) {
@@ -71,14 +71,14 @@ function Transform() {
 }
 
 function Filter() {
-    this.player;
+/*    this.player;*/
     this.bright = 100;
     this.sat = 100;
     this.contrast = 100;
 
-    this.Filter = function (p) {
-        this.player = p;
-    }
+    //this.Filter = function (p) {
+    //    this.player = p;
+    //}
 
     this.setBrightness = function (val) {
         this.bright += val;
@@ -101,7 +101,7 @@ function Filter() {
 }
 
 function Time() {
-    this.player;
+/*    this.player;*/
     //loop
     this.la = -1;
     this.lb = -1;
@@ -112,7 +112,7 @@ function Time() {
     this.pIndx = -1;
 
     this.Time = function (p) {
-        this.player = p;
+/*        this.player = p;*/
 
         this.getPos();
         this.addChapter();
