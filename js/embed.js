@@ -1,6 +1,6 @@
-/*¦¹¬°´O¤Jºô¯¸¥Î*/
+/*æ­¤ç‚ºåµŒå…¥ç¶²ç«™ç”¨*/
 
-//¾B½ª¼½©ñ¾¹¥H¥~
+//é®è”½æ’­æ”¾å™¨ä»¥å¤–
 var isOnlyVid = false;
 function onlyVideo() {
     isOnlyVid = (isOnlyVid ? false : true);
@@ -11,7 +11,7 @@ function onlyVideo() {
         for (var i = 0; i < btns.length; i++) {
             btns[i].style.visibility = "visible";
         }
-        //¼v¤ù¸m¤¤
+        //å½±ç‰‡ç½®ä¸­
         //player.style.position = "absolute";
         //player.style.left = "50%";
         //player.style.transform = "translate(-50%, -50%);";
@@ -41,25 +41,25 @@ function Transform() {
         this.player = p;
     }
 
-    //¨¤«×½Õ¾ã
+    //è§’åº¦èª¿æ•´
     function setRotate(val) {
         this.rotate += val;
         this.adjTransform();
     }
 
-    //¤ô¥­Â½Âà
+    //æ°´å¹³ç¿»è½‰
     function setFlip() {
         this.flip = (this.flip ? false : true);
         this.adjTransform();
     }
 
-    //¤W¤U²¾°Ê
+    //ä¸Šä¸‹ç§»å‹•
     function setPositionY(val) {
         this.top += val;
         this.adjTransform();
     }
 
-    //¥ª¥k²¾°Ê
+    //å·¦å³ç§»å‹•
     function setPositionX(val) {
         this.left += val;
         this.adjTransform();
@@ -72,31 +72,31 @@ function Transform() {
 
 function Filter() {
     player;
-    «G«× = 100;
-    ¹¡©M«× = 100;
-    ¹ï¤ñ«× = 100;
+    äº®åº¦ = 100;
+    é£½å’Œåº¦ = 100;
+    å°æ¯”åº¦ = 100;
 
     function Filter(p) {
         this.player = p;
     }
 
     function setBrightness(val) {
-        this.«G«× += val;
+        this.äº®åº¦ += val;
         this.adjFilter();
     }
 
     function setSaturate(val) {
-        this.¹¡©M«× += val;
+        this.é£½å’Œåº¦ += val;
         this.adjFilter();
     }
 
     function setContrast(val) {
-        this.¹ï¤ñ«× += val;
+        this.å°æ¯”åº¦ += val;
         this.adjFilter();
     }
 
     function adjFilter() {
-        this.player.style.filter = "brightness(" + this.«G«× + "%) saturate(" + this.¹¡©M«× + "%) contrast(" + this.¹ï¤ñ«× + "%)";
+        this.player.style.filter = "brightness(" + this.äº®åº¦ + "%) saturate(" + this.é£½å’Œåº¦ + "%) contrast(" + this.å°æ¯”åº¦ + "%)";
     }
 }
 
@@ -125,7 +125,7 @@ function Time() {
 
     function makerPos() {
         this.player.pause();
-        var m = prompt("¦WºÙ");
+        var m = prompt("åç¨±");
         if (m != null && m != "") {
             this.pos[this.pos.length] = m + ":" + Math.round(this.player.currentTime);
         }
@@ -153,7 +153,7 @@ function Time() {
         }
     }
 
-    //´¡¤J³¹¸`«ö¶s
+    //æ’å…¥ç« ç¯€æŒ‰éˆ•
     function addChapter() {
         if (this.pos.length == 0) return;
 
@@ -217,14 +217,14 @@ function main() {
     var time = new Time(player);
 
     player.ontimeupdate = () => {
-        //Åã¥Ü³]©w­È
+        //é¡¯ç¤ºè¨­å®šå€¼
         var s = Math.round(player.playbackRate * 100) / 100;
-        document.title = "«G:" + (filter.«G«× / 100) + "¹¡:" + (filter.¹¡©M«× / 100) + "¹ï:" + (filter.¹ï¤ñ«× / 100) + "³t:" + s;
+        document.title = "äº®:" + (filter.äº®åº¦ / 100) + "é£½:" + (filter.é£½å’Œåº¦ / 100) + "å°:" + (filter.å°æ¯”åº¦ / 100) + "é€Ÿ:" + s;
 
         time.loopIfExist();
     }
 
-    //§Ö±¶Áä¨Æ¥óºÊÅ¥
+    //å¿«æ·éµäº‹ä»¶ç›£è½
     function hotKey(e) {
         switch (e.code) {
 
