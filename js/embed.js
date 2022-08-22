@@ -111,12 +111,12 @@ function Time() {
     this.pos = [];
     this.pIndx = -1;
 
-    this.Time = function (p) {
-/*        this.player = p;*/
+//    this.Time = function (p) {
+///*        this.player = p;*/
 
-        this.getPos();
-        this.addChapter();
-    }
+//        this.getPos();
+//        this.addChapter();
+//    }
 
     //pos
     this.showPosUrl = function () {
@@ -215,6 +215,8 @@ function main() {
     var transform = new Transform(player);
     var filter = new Filter(player);
     var time = new Time(player);
+    time.getPos();
+    time.addChapter();
 
     player.ontimeupdate = () => {
         //顯示設定值
