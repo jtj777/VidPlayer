@@ -102,7 +102,8 @@ function Time() {
 
     //pos
     this.showPosUrl = function () {
-        window.open(window.location.toString() + "?pos=" + this.pos.toString());
+        //重複按下時,移除參數
+        window.open(window.location.toString().split('?', 0) + "?pos=" + this.pos.toString());
     }
 
     this.makerPos = function () {
@@ -203,8 +204,18 @@ function main() {
     player.ontimeupdate = () => {
         //顯示設定值
         var s = Math.round(player.playbackRate * 100) / 100;
-        document.title = "亮:" + (filter.bright / 100) + "飽:" + (filter.sat / 100) + "對:" + (filter.contrast / 100) + "速:" + s;
 
+        var title = "亮:" + (filter.bright / 100) + "飽:" + (filter.sat / 100) + "對:" + (filter.contrast / 100) + "速:" + s;
+
+        //loopAB
+        if (time.la >= 0) {
+            title += "A";
+        }
+        if (time.lb >= 0) {
+            title += "B";
+        }
+
+        document.title = title;
         time.loopIfExist();
     }
 
