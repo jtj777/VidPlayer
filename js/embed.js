@@ -1,22 +1,30 @@
 /*此為嵌入網站用*/
 
 //遮蔽播放器以外
+var tmpBody = "";
 var isOnlyVid = false;
 function onlyVideo() {
     isOnlyVid = (isOnlyVid ? false : true);
     if (isOnlyVid) {
-        document.body.style.visibility = "hidden";
-        player.style.visibility = "visible";
+        if (tmpBody == "") {
+            tmpBody = document.body;
+        }
+        //remove
+        //document.body.style.visibility = "hidden";
+        //player.style.visibility = "visible";
+        var tmpSrc = player.src;
+        document.body = "<!--設定面板--> <div class='offcanvas offcanvas-bottom' data-bs-backdrop='false' id='offcanvasScrolling' style='height:7vh'> <div class='offcanvas-body row'> <!--關閉設定面板的按鈕--> <button class='col-1 form-floating btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button> <div class='col-3 form-floating'> <div class='input-group input-group-sm'> <button class='btn btn-outline-secondary btn-sm' id='btnLoopA'>A</button> <input id='loopA' class='form-control'> <button class='btn btn-outline-secondary btn-sm' id='btnLoopAAdd'>＋</button> <button class='btn btn-outline-secondary btn-sm' id='btnLoopASub'>－</button> <span> </span> <button class='btn btn-outline-secondary btn-sm' id='btnLoopB'>B</button> <input id='loopB' class='form-control'> <button class='btn btn-outline-secondary btn-sm' id='btnLoopBAdd'>＋</button> <button class='btn btn-outline-secondary btn-sm' id='btnLoopBSub'>－</button> </div> </div> <div class='col-2 form-floating'> <div class='input-group input-group-sm'> <span class='input-group-text shadow'>Loop</span> <div class='input-group-text shadow'> <input type='checkbox' class='btn btn-secondary btn-sm shadow' id='btnLoopOn' /> </div> </div> </div> <div class='col-1 form-floating'> <div class='input-group input-group-sm shadow'> <span class='input-group-text'>角度</span> <input class='form-control' id='rotate' value='0' readonly /> </div> </div> <div class='col-1 form-floating'> <div class='input-group input-group-sm shadow'> <span class='input-group-text'>鏡像</span> <input class='form-control' id='rotateY' value='False' readonly /> </div> </div> <div class='col-1 form-floating'> <div class='input-group input-group-sm shadow'> <span class='input-group-text'>速度</span> <input class='form-control' id='speed' value='100%' readonly /> </div> </div> <div class='col-1 form-floating'> <div class='input-group input-group-sm shadow'> <span class='input-group-text'>亮度</span> <input class='form-control' id='bright' value='100%' readonly /> </div> </div> <div class='col-1 form-floating'> <div class='input-group input-group-sm shadow'> <span class='input-group-text'>飽和度</span> <input class='form-control' id='saturation' value='100%' readonly /> </div> </div> <div class='col-1 form-floating'> <div class='input-group input-group-sm shadow'> <span class='input-group-text'>對比度</span> <input class='form-control' id='contrast' value='100%' readonly /> </div> </div> </div> </div>";
+        player = document.getElementsByTagName('video')[0];
+        player.src = tmpSrc;
+
         var btns = document.getElementsByClassName('data-start');
         for (var i = 0; i < btns.length; i++) {
             btns[i].style.visibility = "visible";
         }
-        //影片置中
-        //player.style.position = "absolute";
-        //player.style.left = "50%";
-        //player.style.transform = "translate(-50%, -50%);";
     } else {
-        document.body.style.visibility = "visible";
+        //show
+        //document.body.style.visibility = "visible";
+        document.body = tmpBody;
     }
 }
 
