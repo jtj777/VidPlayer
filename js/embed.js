@@ -1,24 +1,29 @@
 /*此為嵌入網站用*/
 
 //遮蔽播放器以外
-var tmpBody = "";
 var isOnlyVid = false;
+//function onlyVideo() {
+//    isOnlyVid = (isOnlyVid ? false : true);
+//    if (isOnlyVid) {
+//        document.body.style.visibility = "hidden";
+//        player.style.visibility = "visible";
+
+//        var btns = document.getElementsByClassName('data-start');
+//        for (var i = 0; i < btns.length; i++) {
+//            btns[i].style.visibility = "visible";
+//        }
+//    } else {
+//        //show
+//        document.body.style.visibility = "visible";
+//    }
+//}
+
 function onlyVideo() {
     isOnlyVid = (isOnlyVid ? false : true);
     if (isOnlyVid) {
-        if (tmpBody == "") {
-            tmpBody = document.body;
-        }
-        document.body.style.visibility = "hidden";
-        player.style.visibility = "visible";
-
-        var btns = document.getElementsByClassName('data-start');
-        for (var i = 0; i < btns.length; i++) {
-            btns[i].style.visibility = "visible";
-        }
+        player.style.height = "100%";       
     } else {
-        //show
-        document.body.style.visibility = "visible";
+        player.style.height = "";
     }
 }
 
