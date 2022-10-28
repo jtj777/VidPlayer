@@ -2,28 +2,19 @@
 
 //遮蔽播放器以外
 var isOnlyVid = false;
-//function onlyVideo() {
-//    isOnlyVid = (isOnlyVid ? false : true);
-//    if (isOnlyVid) {
-//        document.body.style.visibility = "hidden";
-//        player.style.visibility = "visible";
-
-//        var btns = document.getElementsByClassName('data-start');
-//        for (var i = 0; i < btns.length; i++) {
-//            btns[i].style.visibility = "visible";
-//        }
-//    } else {
-//        //show
-//        document.body.style.visibility = "visible";
-//    }
-//}
-
 function onlyVideo() {
     isOnlyVid = (isOnlyVid ? false : true);
     if (isOnlyVid) {
-        player.style.height = "100%";       
+        document.body.style.visibility = "hidden";
+        player.style.visibility = "visible";
+
+        var btns = document.getElementsByClassName('data-start');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].style.visibility = "visible";
+        }
     } else {
-        player.style.height = "";
+        //show
+        document.body.style.visibility = "visible";
     }
 }
 
