@@ -252,12 +252,13 @@ function disableABLoop() {
 }
 
 function vidTimeUpdated() {
+    var roundedTime = Math.floor(player.currentTime);
     //修改標題
     var title = document.title.split(' : ')[0];
-    document.title = title + " : " + Math.floor(player.currentTime);
+    document.title = title + " : " + roundedTime;
 
     //紀錄最後播放位置
-    localStorage.setItem(title, player.currentTime);
+    localStorage.setItem(title, roundedTime);
 
     //迴圈播放
     var la = parseInt($('#loopA').val());
