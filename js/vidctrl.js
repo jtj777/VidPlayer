@@ -256,6 +256,9 @@ function vidTimeUpdated() {
     var title = document.title.split(' : ')[0];
     document.title = title + " : " + Math.floor(player.currentTime);
 
+    //紀錄最後播放位置
+    localStorage.setItem(title, player.currentTime);
+
     //迴圈播放
     var la = parseInt($('#loopA').val());
     var lb = parseInt($('#loopB').val());
@@ -313,6 +316,10 @@ function initPlayer(vidSrc, pos) {
     bindChapter();
 
     setFitSize();
+
+    //播放上次的位置
+    var title = document.title.split(' : ')[0];
+    player.currentTime = localStorage.getItem(title);
 }
 
 function bindChapter() {
