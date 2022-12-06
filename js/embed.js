@@ -193,6 +193,9 @@ function Time() {
 }
 
 function main() {
+    //移到最後播放位置
+    player.currentTime = localStorage.getItem("leastTime");
+
     var transform = new Transform(player);
     var filter = new Filter(player);
     var time = new Time(player);
@@ -215,6 +218,9 @@ function main() {
 
         document.title = title;
         time.loopIfExist();
+
+        //紀錄最後播放位置
+        localStorage.setItem("leastTime", player.currentTime);
     }
 
     //快捷鍵事件監聽
