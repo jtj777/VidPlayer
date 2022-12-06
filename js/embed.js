@@ -193,11 +193,14 @@ function Time() {
 }
 
 function main() {
-    if (window.confirm("上次位置("+player.currentTime+") 要繼續嗎?")) {
-        //移到最後播放位置
-        player.currentTime = localStorage.getItem("leastTime");
-    } 
-
+    var lt = localStorage.getItem("leastTime");
+    if(lt){
+        if (window.confirm("上次位置("+lt+") 要繼續嗎?")) {
+            //移到最後播放位置
+            player.currentTime = lt;
+        }     
+    }
+   
     var transform = new Transform(player);
     var filter = new Filter(player);
     var time = new Time(player);
