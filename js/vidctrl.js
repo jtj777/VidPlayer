@@ -229,25 +229,25 @@ function adjFilter() {
 
 //視窗縮放
 window.onresize = function () {
-    if (!player) player = document.getElementById('player');
+    player = document.getElementById('player');
     setFitSize();
     showToast("影片尺寸:" + player.width + "x" + player.height);
 };
 
-function enableABLoop() {
-    //setting.loopA = a;
-    //setting.loopB = b;
-    //var aVal = parseInt($('#loopA').val());
-    //var bVal = parseInt($('#loopB').val());
+// 啟動迴圈播放
+function enableABLoop(second_a,second_b) {
     setting.isABLoop = true;
-    player.currentTime = parseInt($('#loopA').val());
+    setting.loopA = second_a;
+    setting.loopB = second_b
+    player.currentTime = second_a;
     showToast("設定Loop");
 }
 
+// 關閉迴圈播放
 function disableABLoop() {
-    //setting.loopA = -1;
-    //setting.loopB = -1;
     setting.isABLoop = false;
+    setting.loopA = -1;
+    setting.loopB = -1;
     showToast("取消Loop");
 }
 
@@ -261,11 +261,11 @@ function vidTimeUpdated() {
     localStorage.setItem(title, roundedTime);
 
     //迴圈播放
-    var la = parseInt($('#loopA').val());
-    var lb = parseInt($('#loopB').val());
-    if (setting.isABLoop && la >= 0 && lb > la) {
-        if (player.currentTime > lb) {
-            player.currentTime = la;
+    var a = setting.loopA;
+    var b = setting.loopB;
+    if (setting.isABLoop && a >= 0 && b > a) {
+        if (player.currentTime > b) {
+            player.currentTime = a;
         }
     }
 
