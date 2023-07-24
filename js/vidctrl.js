@@ -300,12 +300,13 @@ function setFitSize() {
 }
 
 function initPlayer(vidSrc, pos) {
-    if (!player) player = document.getElementById('player');
+    player = document.getElementById('player');
     player.src = vidSrc;
     setting.posList = [];
     var content = "";
     for (var i = 0; i < pos.length; i++) {
-        var c = pos[i].split(':');
+        // var c = pos[i].split(':');
+        var c = pos[i].split('|');
         var p1 = c[0];
         var p2 = c[1];
         content += "<li class='shadow' data-start='" + p2 + "'>" + p1 + "</li>";
