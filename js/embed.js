@@ -192,15 +192,7 @@ function Time() {
     }
 }
 
-function main() {
-    var lt = localStorage.getItem("leastTime");
-    if(lt){
-        if (window.confirm("上次位置("+lt+") 要繼續嗎?")) {
-            //移到最後播放位置
-            player.currentTime = lt;
-        }     
-    }
-   
+function main() {   
     var transform = new Transform(player);
     var filter = new Filter(player);
     var time = new Time(player);
@@ -223,9 +215,6 @@ function main() {
 
         document.title = title;
         time.loopIfExist();
-
-        //紀錄最後播放位置
-        localStorage.setItem("leastTime", player.currentTime);
     }
 
     //快捷鍵事件監聽
