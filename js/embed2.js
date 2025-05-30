@@ -3,6 +3,22 @@
 let player = null;
 let isOnlyVid = false;
 
+function init() {
+    const transform = new Transform();
+    const filter = new Filter();
+    const time = new Time();
+
+    time.getPosFromURL();
+    time.insertChapters();
+
+    player.ontimeupdate = () => {
+        updateDisplay(filter);
+        time.checkLoop();
+    };
+
+    window.addEventListener('keydown', (e) => handleHotKey(e, transform, filter, time));
+}
+
 const waitForVideo = setInterval(() => {
     const vid = document.querySelector('video');
     if (vid) {
@@ -217,20 +233,4 @@ function handleHotKey(e, transform, filter, time) {
         case 'KeyM': time.markPosition(); break;
         case 'KeyU': time.showPositionURL(); break;
     }
-}
-
-function init() {
-    const transform = new Transform();
-    const filter = new Filter();
-    const time = new Time();
-
-    time.getPosFromURL();
-    time.insertChapters();
-
-    player.ontimeupdate = () => {
-        updateDisplay(filter);
-        time.checkLoop();
-    };
-
-    window.addEventListener('keydown', (e) => handleHotKey(e, transform, filter, time));
 }
