@@ -202,6 +202,8 @@ function updateDisplay(filter = null) {
     const saturate = filter ? filter.saturate : 100;
     const contrast = filter ? filter.contrast : 100;
     const speed = player ? (Math.round(player.playbackRate * 100) / 100) : 1;
+    const current = player ? formatTime(player.currentTime) : '0:00';
+    const total = player ? formatTime(player.duration) : '';
 
     let loop = '';
     if (player) {
@@ -209,7 +211,14 @@ function updateDisplay(filter = null) {
         if (player.loopEnd >= 0) loop += ' B';
     }
 
-    infoBox.textContent = `亮:${brightness / 100} 飽:${saturate / 100} 對:${contrast / 100} 速:${speed}${loop}`;
+    infoBox.textContent = `亮:${brightness / 100} 飽:${saturate / 100} 對:${contrast / 100} 速:${speed} 時:${current}/${total}${loop}`;
+}
+
+function formatTime(sec) {
+    sec = Math.floor(sec);
+    const min = Math.floor(sec / 60);
+    const secPart = sec % 60;
+    return `${min}:${secPart < 10 ? '0' : ''}${secPart}`;
 }
 
 function handleHotKey(e, transform, filter, time) {
