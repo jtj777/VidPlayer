@@ -3,37 +3,14 @@
 let player = null;
 let isOnlyVid = false;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const init = () => {
-        player = document.querySelector('video');
-        if (!player) return;
-
-        const transform = new Transform();
-        const filter = new Filter();
-        const time = new Time();
-
-        time.getPosFromURL();
-        time.insertChapters();
-
-        player.ontimeupdate = () => {
-            updateTitle(filter, time);
-            time.checkLoop();
-        };
-
-        window.addEventListener('keydown', (e) => handleHotKey(e, transform, filter, time));
-    };
-
-    const observer = new MutationObserver(() => {
-        if (!player) {
-            const vid = document.querySelector('video');
-            if (vid) {
-                player = vid;
-                init();
-            }
-        }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-});
+const waitForVideo = setInterval(() => {
+    const vid = document.querySelector('video');
+    if (vid) {
+        clearInterval(waitForVideo);
+        player = vid;
+        init();
+    }
+}, 500);
 
 function toggleOnlyVideo() {
     isOnlyVid = !isOnlyVid;
