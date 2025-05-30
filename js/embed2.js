@@ -118,12 +118,17 @@ class Time {
         const container = document.createElement('div');
         container.id = 'pnlChapter';
         container.style.position = 'absolute';
-        container.style.top = '40px';
+        container.style.top = '50%';
         container.style.left = '10px';
+        container.style.transform = 'translateY(-50%)';
         container.style.zIndex = '9999';
         container.style.backgroundColor = 'rgba(0,0,0,0.6)';
-        container.style.padding = '4px';
+        container.style.padding = '6px';
         container.style.borderRadius = '4px';
+        container.style.display = 'flex';
+        container.style.flexDirection = 'column';
+        container.style.alignItems = 'flex-start';
+        container.style.gap = '4px';
 
         this.positions.forEach(p => {
             const [label, time] = p.split(':');
@@ -131,7 +136,7 @@ class Time {
             btn.className = 'data-start';
             btn.textContent = label;
             btn.dataset.time = time || label;
-            btn.style.margin = '2px';
+            btn.style.margin = '0';
             btn.onclick = (e) => { player.currentTime = e.target.dataset.time; };
             container.appendChild(btn);
         });
@@ -181,8 +186,9 @@ function updateDisplay(filter = null) {
         infoBox = document.createElement('div');
         infoBox.id = 'videoInfoBox';
         infoBox.style.position = 'absolute';
-        infoBox.style.bottom = '10px';
-        infoBox.style.right = '10px';
+        infoBox.style.top = '10px';
+        infoBox.style.left = '50%';
+        infoBox.style.transform = 'translateX(-50%)';
         infoBox.style.padding = '6px 10px';
         infoBox.style.background = 'rgba(0,0,0,0.7)';
         infoBox.style.color = '#fff';
