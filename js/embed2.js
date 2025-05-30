@@ -1,4 +1,4 @@
-// 嵌入式播放器控制腳本 - 優化版
+// 嵌入式播放器控制腳本 - Loop 版
 
 let player = null;
 let isOnlyVid = false;
@@ -78,6 +78,7 @@ class Filter {
     apply() {
         if (!player) return;
         player.style.filter = `brightness(${this.brightness}%) saturate(${this.saturate}%) contrast(${this.contrast}%)`;
+        updateDisplay(this);
     }
 }
 
@@ -101,7 +102,12 @@ class Time {
         const container = document.createElement('div');
         container.id = 'pnlChapter';
         container.style.position = 'absolute';
-        container.style.top = '0';
+        container.style.top = '40px';
+        container.style.left = '10px';
+        container.style.zIndex = '9999';
+        container.style.backgroundColor = 'rgba(0,0,0,0.6)';
+        container.style.padding = '4px';
+        container.style.borderRadius = '4px';
 
         this.positions.forEach(p => {
             const [label, time] = p.split(':');
@@ -109,6 +115,7 @@ class Time {
             btn.className = 'data-start';
             btn.textContent = label;
             btn.dataset.time = time || label;
+            btn.style.margin = '2px';
             btn.onclick = (e) => { player.currentTime = e.target.dataset.time; };
             container.appendChild(btn);
         });
@@ -144,16 +151,43 @@ class Time {
         }
     }
 
-    adjustSpeed(val) { player.playbackRate += val; }
+    adjustSpeed(val) {
+        player.playbackRate += val;
+        updateDisplay();
+    }
+
     seek(val) { player.currentTime += val; }
 }
 
-function updateTitle(filter, time) {
-    const rate = Math.round(player.playbackRate * 100) / 100;
-    let title = `亮:${filter.brightness / 100} 飽:${filter.saturate / 100} 對:${filter.contrast / 100} 速:${rate}`;
-    if (time.loopStart >= 0) title += ' A';
-    if (time.loopEnd >= 0) title += ' B';
-    document.title = title;
+function updateDisplay(filter = null) {
+    let infoBox = document.getElementById('videoInfoBox');
+    if (!infoBox) {
+        infoBox = document.createElement('div');
+        infoBox.id = 'videoInfoBox';
+        infoBox.style.position = 'absolute';
+        infoBox.style.bottom = '10px';
+        infoBox.style.right = '10px';
+        infoBox.style.padding = '6px 10px';
+        infoBox.style.background = 'rgba(0,0,0,0.7)';
+        infoBox.style.color = '#fff';
+        infoBox.style.fontSize = '12px';
+        infoBox.style.borderRadius = '4px';
+        infoBox.style.zIndex = '9999';
+        document.body.appendChild(infoBox);
+    }
+
+    const brightness = filter ? filter.brightness : 100;
+    const saturate = filter ? filter.saturate : 100;
+    const contrast = filter ? filter.contrast : 100;
+    const speed = player ? (Math.round(player.playbackRate * 100) / 100) : 1;
+
+    let loop = '';
+    if (player) {
+        if (player.loopStart >= 0) loop += ' A';
+        if (player.loopEnd >= 0) loop += ' B';
+    }
+
+    infoBox.textContent = `亮:${brightness / 100} 飽:${saturate / 100} 對:${contrast / 100} 速:${speed}${loop}`;
 }
 
 function handleHotKey(e, transform, filter, time) {
@@ -183,4 +217,20 @@ function handleHotKey(e, transform, filter, time) {
         case 'KeyM': time.markPosition(); break;
         case 'KeyU': time.showPositionURL(); break;
     }
+}
+
+function init() {
+    const transform = new Transform();
+    const filter = new Filter();
+    const time = new Time();
+
+    time.getPosFromURL();
+    time.insertChapters();
+
+    player.ontimeupdate = () => {
+        updateDisplay(filter);
+        time.checkLoop();
+    };
+
+    window.addEventListener('keydown', (e) => handleHotKey(e, transform, filter, time));
 }
