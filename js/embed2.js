@@ -222,6 +222,7 @@ function formatTime(sec) {
 }
 
 function handleHotKey(e, transform, filter, time) {
+    if (e.repeat) return; // 忽略按住不放重複事件
     const shift = e.shiftKey;
     const key = e.code;
     const val10 = shift ? -10 : 10;
@@ -248,4 +249,5 @@ function handleHotKey(e, transform, filter, time) {
         case 'KeyM': time.markPosition(); break;
         case 'KeyU': time.showPositionURL(); break;
     }
+    e.preventDefault();
 }
